@@ -1,0 +1,65 @@
+////////////////////////////////////////////////////////////
+		prefs.xul
+///////////////////////////////////////////////////////////
+
+<?xml version="1.0"?>
+
+
+<prefwindow id="mccullohcalc-prefs" title="Status-Bar Calculator Preferences"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	windowtype="prefwindow"
+	buttons="accept,cancel"
+>
+
+<prefpane id="mccullohcalc-prefpane">
+	<preferences>
+		<preference id="mccullohcalc-statusBarPosition" name="extensions.mccullohcalc.statusBarPosition" type="int" />
+	</preferences>
+	
+	<spacer style="height: 12px"/>
+	
+
+	<groupbox flex="1">
+		<caption label="Position in Status-Bar"/>
+		
+		<hbox align="start">
+			<spacer class="pref-hspacer"/>
+			<vbox>
+				<spacer style="height: 6px"/>
+				<image src="chrome://calculloh/content/calc.gif"/>
+			</vbox>
+			<spacer class="pref-hspacer"/>
+			<vbox>
+				<hbox align="center">
+					<label value="Position :" class="pref-label"/>
+					<textbox id="txtmccullohcalc-position" preference="mccullohcalc-statusBarPosition" class="textbox-seconds"/>
+					<label value="(1-16)"/>
+				</hbox>
+				
+				<label value="This determines where the calculator appears in the status-bar. The lower the number the further to the left it will be." class="description"/>
+			</vbox>
+		</hbox>
+	</groupbox>
+	
+	<spacer style="height: 12px"/>
+	
+</prefpane>
+
+</prefwindow>
+
+
+/////////////////////////////////////////////////////////////
+		In Main Chrome Overlay JavaScript:
+/////////////////////////////////////////////////////////////
+
+function calcullohOpenOptions (event) {
+	window.openDialog("chrome://calculloh/content/prefs.xul", "_blank", "centerscreen,chrome,resizable=yes,dependent=yes")
+}
+
+/////////////////////////////////////////////////////////////
+		In Main Chrome Overlay:
+/////////////////////////////////////////////////////////////
+
+	<popup id="calculloh-contextmenu" orient="vertical">
+		<menuitem label="options" accesskey="" oncommand="calcullohOpenOptions()"/>
+	</popup>

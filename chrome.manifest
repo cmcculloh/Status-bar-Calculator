@@ -1,0 +1,3 @@
+content calculloh chrome/chromeFiles/content/
+
+overlay chrome://browser/content/browser.xul chrome://calculloh/content/cmccullohCalc.xul

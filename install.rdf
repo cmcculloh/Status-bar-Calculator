@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#"> 
+
+  <Description about="urn:mozilla:install-manifest"> 
+    <em:id>calculator@cmcculloh</em:id> 
+    <em:version>0.9.4</em:version> 
+    <em:type>2</em:type> 
+    
+    <!-- Target Application this extension can install into, 
+    	 with minimum and maximum supported versions. --> 
+    	 
+    <em:targetApplication> 
+      <Description> 
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id> 
+        <em:minVersion>1.5</em:minVersion> 
+        <em:maxVersion>1.5.0.*</em:maxVersion> 
+      </Description> 
+    </em:targetApplication> 
+    
+    <!-- Front End MetaData --> 
+    <em:name>Status-bar Calculator</em:name> 
+    <em:description>It's a tiny calculator icon in the status bar. Click it, to expand it and use it. Click the '+' to change to '-', '/', '*', or '^'. Click '=' to get the answer (output to the first textbox). Click the calcultor icon to shrink it to just the icon when not using it. Also, you can use the "+", "-", "^", "/", "*", and "=" keys to preform those functions.</em:description> 
+    <em:creator>Christopher McCulloh</em:creator>
+    <em:contributor>Mike</em:contributor>
+    <em:contributor>Fer</em:contributor>
+    <em:homepageURL>http://www.cmcculloh.com/tutorials/calculator/</em:homepageURL>
+    <em:iconURL>chrome://calculloh/content/ico.gif</em:iconURL>
+    <em:optionsURL>chrome://calculloh/content/prefs.xul</em:optionsURL>
+  </Description> 
+</RDF>
