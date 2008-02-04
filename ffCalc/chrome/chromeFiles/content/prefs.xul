@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
+
+<prefwindow id="mccullohcalc-prefs" title="Status-Bar Calculator Preferences"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	windowtype="prefwindow"
+	buttons="accept,cancel"
+>
+
+<prefpane id="mccullohcalc-prefpane">
+
+<hbox >
+	<vbox>
+		<label value="Hello World!" />
+	</vbox>
+</hbox>
+
+
+</prefpane>
+</prefwindow>

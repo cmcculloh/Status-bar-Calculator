@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
+
+<prefwindow id="mccullohcalc-prefs" title="Status-Bar Calculator Preferences"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	windowtype="prefwindow"
+	buttons="accept,cancel"
+>
+
+<prefpane id="mccullohcalc-prefpane">
+	<preferences>
+		<preference id="mccullohcalc-statusBarPosition" name="extensions.mccullohcalc.statusBarPosition" type="int" />
+	</preferences>	
+		
+		<hbox align="start">
+			<spacer class="pref-hspacer"/>
+			<vbox>
+				<spacer style="height: 6px"/>
+				<image src="chrome://calculloh/content/calc.gif"/>
+			</vbox>
+			<spacer class="pref-hspacer"/>
+			<vbox>
+				<hbox align="center">
+					<label value="Position :" class="pref-label"/>
+					<textbox id="txtmccullohcalc-position" preference="mccullohcalc-statusBarPosition"/>
+					<label value="(1-16)"/>
+				</hbox>
+				
+				<label value="This determines where the calculator appears in the status-bar. The lower the number the further to the left it will be." class="description"/>
+			</vbox>
+		</hbox>
+	
+</prefpane>
+
+</prefwindow>

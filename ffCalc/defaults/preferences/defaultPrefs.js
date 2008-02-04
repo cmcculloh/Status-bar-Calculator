@@ -1,0 +1,1 @@
+pref("extensions.mccullohcalc.statusBarPosition", 16);

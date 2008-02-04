@@ -1,0 +1,47 @@
+<?xml version="1.0"?> 
+<overlay id="sample" 
+	 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"> 
+	 
+ <statusbar id="status-bar">
+
+  <statusbarpanel id="calc_ico" class="statusbarpanel-iconic" ondblclick="cdm_hide('calcPanel');" src="chrome://calculloh/content/calc.gif" context="calculloh-contextmenu" />
+
+  <popupset>
+  <popup id="calculloh-contextmenu" orient="vertical">
+		<menuitem label="options" accesskey="" oncommand="calcullohOpenOptions()"/>
+  </popup>
+  </popupset>
+	
+  <statusbarpanel id="calcPanel" style="display: none; height: 24px; padding: 0px">
+   
+   <textbox style="width: 50px; padding: 0px 2px; margin 0px;" id="number1" oninput="cdm_pressAKey('number1');" />
+   <menu id="operator" label="">
+   <label id="operatorLabel" value="+" />
+   	<menupopup id="menu_CalcPopup" >
+      		<menuitem label="Hex to Dec" oncommand="cdm_convert('h2d');" />
+      		<menuitem label="Dec to Hex" oncommand="cdm_convert('d2h');" />
+      		<menuitem label="Oct to Dec" oncommand="cdm_convert('o2d');" />
+      		<menuitem label="Dec to Oct" oncommand="cdm_convert('d2o');" />
+      		<menuitem label="Bin to Dec" oncommand="cdm_convert('b2d');" />
+      		<menuitem label="Dec to Bin" oncommand="cdm_convert('d2b');" />
+   		<menuitem label="^" oncommand="cdm_changeOperator('^');" />
+   		<menuitem label="/" oncommand="cdm_changeOperator('/');" />
+   		<menuitem label="*" oncommand="cdm_changeOperator('*');" />
+   		<menuitem label="-" oncommand="cdm_changeOperator('-');" />
+   		<menuitem label="+" oncommand="cdm_changeOperator('+');" />
+   	</menupopup>
+   </menu>
+   <textbox style="width: 50px; padding: 0px 2px; margin 0px;" id="number2" oninput="cdm_pressAKey('number2');" onkeypress="doType(event);"/>
+   <keyset>
+   	<key id="submitKey" keyCode="VK_ENTER" />
+   </keyset>
+   <toolbarbutton label="=" id="calculate" oncommand="cdm_calculate();" />
+  </statusbarpanel>
+ </statusbar>
+
+<script type="application/x-javascript" src="chrome://calculloh/content/cdm_scripting.js" />
+
+</overlay>
+
+
+
