@@ -1,13 +1,13 @@
 function calcullohOpenOptions (event) {
-	window.openDialog("chrome://calculloh/content/prefs.xul", "_blank", "centerscreen,chrome,resizable=yes,dependent=yes")
+	window.openDialog("chrome://calculloh/content/FinalPrefs.xul", "_blank", "centerscreen,chrome,resizable=yes,dependent=yes")
 }
 
-function changeOperator(value){
-	document.getElementById("operatorLabel").value = value;
-}//end changeOperator function
+function cdm_changeOperator(newOperator){
+	document.getElementById("operatorLabel").value = newOperator;
+}//end cdm_changeOperator function
 
 function doType(e)  {          //  when something is typed
-   alert(e.which);
+   //alert(e.which);
    var keynum;
    var keychar;
    if(e.which)  {
@@ -20,7 +20,7 @@ function doType(e)  {          //  when something is typed
 
 function focus2(fnumber){
 		document.getElementById("number2").focus();
-		document.getElementById("number1").value = fnumber
+		document.getElementById("number1").value = fnumber;
 }
 
 function quickCalc(qnumber){
@@ -56,7 +56,7 @@ function cdm_pressAKey(whichOne){//open function
 			}else{
 				focus2(number);
 			}
-			changeOperator('+');
+			cdm_changeOperator('+');
 		}
 		if (relSub.test(number)){		
 			number = number.replace(/\-/g, "");
@@ -66,7 +66,7 @@ function cdm_pressAKey(whichOne){//open function
 			}else{
 				focus2(number);
 			}
-			changeOperator('-');
+			cdm_changeOperator('-');
 		}
 		
 		if (relMul.test(number)){
@@ -78,7 +78,7 @@ function cdm_pressAKey(whichOne){//open function
 				focus2(number);
 			}
 
-			changeOperator('*');
+			cdm_changeOperator('*');
 		}
 		
 		if (relDiv.test(number)){
@@ -90,7 +90,7 @@ function cdm_pressAKey(whichOne){//open function
 				focus2(number);
 			}
 
-			changeOperator('/');
+			cdm_changeOperator('/');
 		}
 		
 		if (relPow.test(number)){
@@ -102,7 +102,7 @@ function cdm_pressAKey(whichOne){//open function
 				focus2(number);
 			}
 
-			changeOperator('^');
+			cdm_changeOperator('^');
 		}
 		
 		if (relEq.test(number)){
@@ -129,53 +129,56 @@ function cdm_calculate(){
 	
 	if (number2 == "" || number1 == ""){//test for empty textbox
 		//alert("You forgot to enter a number!");
-	}else{
+	}else{//if not empty textbox
 	
-	re1 = /[,]/;//checks for commas
+		re1 = /[,]/;//checks for commas
+		re2 = /[a-zA-Z]/;//checks for letters
 	
-	if (re1.test(number1) || re1.test(number2)){//test for commas
-		alert("Please use only numbers. No commas.");
-	}else{
-		
-	number1 = eval(number1);//converts to integer for calculation
-	number2 = eval(number2);//converts to integer for calculation
+		if (re1.test(number1) || re1.test(number2)){//test for commas
+			alert("Please use only numbers. No commas.");
+		}else if(re2.test(number1) || re2.test(number2)){//test for letters
+			alert("Please use only numbers. No letters. \n\n The calculator only calculates decimal numbers, please convert to decimal before performing calculation.");
+		}else{
 
-	if (operator == "+"){//if operator is + then add them
-		//var answer = number1 + number2;
-		var answer = ((number1*1000 + number2*1000)/1000)//fix decimal problem
-	}else if (operator == "-"){//if operator is - then subtract them
-		//var answer = number1 - number2;
-		var answer = ((number1*1000 - number2*1000)/1000)//fix decimal problem
-	}else if (operator == "*"){//if operator is * then multiply them
-		var answer = number1 * number2;
-	}else if (operator == "/"){//if operator is / then divide them
-		var answer = number1 / number2;
-	}else if (operator == "^"){//if operator is ^ then get the power
-		var answer = Math.pow(number1, number2);
-	}else{
-		alert("Error! Un-recognized operator. Please re-select your operator (+, -, etc...) and try again!");
-	}//end operator selection
+		number1 = eval(number1);//converts to integer for calculation
+		number2 = eval(number2);//converts to integer for calculation
 
-	//alert(answer);
-	document.getElementById("number1").value = answer;//output the answer to the first textbox
-	document.getElementById("number2").value = "";//clear the second textbox
+		if (operator == "+"){//if operator is + then add them
+			//var answer = number1 + number2;
+			var answer = ((number1*1000 + number2*1000)/1000)//fix decimal problem
+		}else if (operator == "-"){//if operator is - then subtract them
+			//var answer = number1 - number2;
+			var answer = ((number1*1000 - number2*1000)/1000)//fix decimal problem
+		}else if (operator == "*"){//if operator is * then multiply them
+			var answer = number1 * number2;
+		}else if (operator == "/"){//if operator is / then divide them
+			var answer = number1 / number2;
+		}else if (operator == "^"){//if operator is ^ then get the power
+			var answer = Math.pow(number1, number2);
+		}else{
+			alert("Error! Un-recognized operator. Please re-select your operator (+, -, etc...) and try again!");
+		}//end operator selection
 
-	var newNumber = answer.toString();
-	newNumber = newNumber.length;
+		//alert(answer);
+		document.getElementById("number1").value = answer;//output the answer to the first textbox
+		document.getElementById("number2").value = "";//clear the second textbox
 
-	if (newNumber >= 6){//if 6 digits long make larger
-		document.getElementById("number1").style.width = "75px";
-	}else{//if less than 6 digits long, make short again
-		document.getElementById("number1").style.width = "50px";
-	}
-	if (newNumber >= 11){//if 11 digits long make larger
-		document.getElementById("number1").style.width = "110px";
-	}
-	if (newNumber >= 16){//if 16 digits long make larger
-		document.getElementById("number1").style.width = "175px";
-	}
-	
-	}//end re1 test
+		var newNumber = answer.toString();
+		newNumber = newNumber.length;
+
+		if (newNumber >= 6){//if 6 digits long make larger
+			document.getElementById("number1").style.width = "75px";
+		}else{//if less than 6 digits long, make short again
+			document.getElementById("number1").style.width = "50px";
+		}
+		if (newNumber >= 11){//if 11 digits long make larger
+			document.getElementById("number1").style.width = "110px";
+		}
+		if (newNumber >= 16){//if 16 digits long make larger
+			document.getElementById("number1").style.width = "175px";
+		}
+
+		}//end re2 test
 	}//end test for empty textbox
 }//end calculate function
 
@@ -187,6 +190,8 @@ function cdm_hide(hideWhat){
 	}else{
 		hideMe.display = "none";
 	}
+	
+	document.getElementById('number1').focus();
 }//end hide
 
 function cdm_convert(cdm_con){
