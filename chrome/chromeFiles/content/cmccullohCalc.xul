@@ -1,20 +1,20 @@
 <?xml version="1.0"?> 
-<overlay id="sample" 
+<overlay id="status-bar-calculator-cmcculloh" 
 	 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"> 
 	 
  <statusbar id="status-bar">
 
-  <statusbarpanel id="calc_ico" class="statusbarpanel-iconic" ondblclick="cdm_hide('calcPanel');" src="chrome://calculloh/content/calc.gif" context="calculloh-contextmenu" />
+  <statusbarpanel id="calc_ico" class="statusbarpanel-iconic" onclick="cdm_hide('calcPanel');" src="chrome://calculloh/content/calc.gif" context="calculloh-contextmenu" />
 
-  <popupset>
+  <!--<popupset>
   <popup id="calculloh-contextmenu" orient="vertical">
 		<menuitem label="options" accesskey="" oncommand="calcullohOpenOptions()"/>
   </popup>
-  </popupset>
+  </popupset>-->
 	
   <statusbarpanel id="calcPanel" style="display: none; height: 24px; padding: 0px">
    
-   <textbox style="width: 50px; padding: 0px 2px; margin 0px;" id="number1" oninput="cdm_pressAKey('number1');" />
+   <textbox style="width: 50px; padding: 0px 2px; margin: 0px;" id="number1" oninput="cdm_pressAKey('number1');" />
    <menu id="operator" label="">
    <label id="operatorLabel" value="+" />
    	<menupopup id="menu_CalcPopup" >
@@ -31,7 +31,7 @@
    		<menuitem label="+" oncommand="cdm_changeOperator('+');" />
    	</menupopup>
    </menu>
-   <textbox style="width: 50px; padding: 0px 2px; margin 0px;" id="number2" oninput="cdm_pressAKey('number2');" onkeypress="doType(event);"/>
+   <textbox style="width: 50px; padding: 0px 2px; margin: 0px;" id="number2" oninput="cdm_pressAKey('number2');" onkeypress="doType(event);"/>
    <keyset>
    	<key id="submitKey" keyCode="VK_ENTER" />
    </keyset>

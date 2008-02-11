@@ -9,13 +9,13 @@
 >
 
 <prefpane id="mccullohcalc-prefpane">
-
 <hbox >
-	<vbox>
-		<label value="Hello World!" />
-	</vbox>
+<vbox>
+<label value="Hello World!" />
+</vbox>
 </hbox>
 
 
 </prefpane>
+
 </prefwindow>
