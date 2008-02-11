@@ -1,13 +1,8 @@
-function calcullohOpenOptions (event) {
-	window.openDialog("chrome://calculloh/content/FinalPrefs.xul", "_blank", "centerscreen,chrome,resizable=yes,dependent=yes")
-}
-
 function cdm_changeOperator(newOperator){
 	document.getElementById("operatorLabel").value = newOperator;
 }
 
 function doType(e)  {          //  when something is typed
-   //alert(e.which);
    var keynum;
    var keychar;
    if(e.which)  {
@@ -29,10 +24,13 @@ function quickCalc(qnumber){
 	number = "";
 }
 
-function cdm_pressAKey(whichOne){//open function
+/**
+* When the user presses a key in either textbox, check to see if they are trying to perform a math function
+*/
+function cdm_pressAKey(whichOne){
 	var number = document.getElementById(whichOne).value;//Gets number
 	var numberTwo = document.getElementById('number2').value;//Gets number from second text-box
-	relNum1 = /[\W]/;
+	relNum1 = /[\+\-\^\*\/=]/;
 	relAdd = /[\+]/;
 	relSub = /[\-]/;
 	relPow = /[\^]/;
@@ -40,67 +38,40 @@ function cdm_pressAKey(whichOne){//open function
 	relDiv = /[\/]/;
 	relEq = /[=]/;
 
-	if (relNum1.test(number)){//open if1
+	//If the character typed is one of the calculator triggers
+	if (relNum1.test(number)){
+		//math operand entered, comply with request
 		if (relAdd.test(number)){
 			number = number.replace(/\+/g, "");
-			if (numberTwo != ""){
-				quickCalc(number);	
-			}else{
-				focus2(number);
-			}
 			cdm_changeOperator('+');
-		}
-		if (relSub.test(number)){		
+		}else if (relSub.test(number)){		
 			number = number.replace(/\-/g, "");
-			if (numberTwo != ""){
-				quickCalc(number);	
-			}else{
-				focus2(number);
-			}
 			cdm_changeOperator('-');
-		}
-		
-		if (relMul.test(number)){
+		}else if (relMul.test(number)){
 			number = number.replace(/\*/g, "");
-			if (numberTwo != ""){
-				quickCalc(number);	
-			}else{
-				focus2(number);
-			}
-
 			cdm_changeOperator('*');
-		}
-		
-		if (relDiv.test(number)){
+		}else if (relDiv.test(number)){
 			number = number.replace(/\//g, "");
-			if (numberTwo != ""){
-				quickCalc(number);	
-			}else{
-				focus2(number);
-			}
-
 			cdm_changeOperator('/');
-		}
-		
-		if (relPow.test(number)){
+		}else if (relPow.test(number)){
 			number = number.replace(/\^/g, "");
-			if (numberTwo != ""){
-				quickCalc(number);	
-			}else{
-				focus2(number);
-			}
-
 			cdm_changeOperator('^');
-		}
-		
-		if (relEq.test(number)){
+		}else if (relEq.test(number)){
 			number = number.replace(/=/g, "");
 			quickCalc(number);
 		}
-	}else{//close if1
-		//alert("do nothing");
-	}
 
+		//if operand entered into second textbox
+		if (numberTwo != ""){
+			//calculate the answer
+			quickCalc(number);	
+		}else{
+			//put the focus into the second textbox
+			focus2(number);
+		}
+	}else{
+		//entered number or letter, do nothing
+	}
 }//close function
 
 function cdm_calculate(){
@@ -109,7 +80,6 @@ function cdm_calculate(){
 	var operator = document.getElementById("operatorLabel").value;//gets operation to perform
 	
 	if (number2 == "" || number1 == ""){//test for empty textbox
-		//alert("You forgot to enter a number!");
 	}else{//if not empty textbox
 	
 		re1 = /[,]/;//checks for commas
@@ -125,10 +95,8 @@ function cdm_calculate(){
 		number2 = eval(number2);//converts to integer for calculation
 
 		if (operator == "+"){//if operator is + then add them
-			//var answer = number1 + number2;
 			var answer = ((number1*1000 + number2*1000)/1000)//fix decimal problem
 		}else if (operator == "-"){//if operator is - then subtract them
-			//var answer = number1 - number2;
 			var answer = ((number1*1000 - number2*1000)/1000)//fix decimal problem
 		}else if (operator == "*"){//if operator is * then multiply them
 			var answer = number1 * number2;
@@ -140,7 +108,6 @@ function cdm_calculate(){
 			alert("Error! Un-recognized operator. Please re-select your operator (+, -, etc...) and try again!");
 		}//end operator selection
 
-		//alert(answer);
 		document.getElementById("number1").value = answer;//output the answer to the first textbox
 		document.getElementById("number2").value = "";//clear the second textbox
 
@@ -180,92 +147,88 @@ function cdm_convert(cdm_con){
 	var hex;
 	Populate();
 
-function MakeArray()
-{
-    this.length = 36;
-    return this;
-}
+	function MakeArray(){
+	    this.length = 36;
+	    return this;
+	}
 
-function Populate()
-{
-    hex = new MakeArray();
-    hex[1] = "0";    
-    hex[2] = "1";    
-    hex[3] = "2";    
-    hex[4] = "3";    
-    hex[5] = "4";    
-    hex[6] = "5";    
-    hex[7] = "6";    
-    hex[8] = "7";    
-    hex[9] = "8";    
-    hex[10] = "9";    
-    hex[11] = "A";    
-    hex[12] = "B";    
-    hex[13] = "C";    
-    hex[14] = "D";    
-    hex[15] = "E";    
-    hex[16] = "F";    
-    hex[17] = "G";    
-    hex[18] = "H";    
-    hex[19] = "I";    
-    hex[20] = "J";    
-    hex[21] = "K";    
-    hex[22] = "L";    
-    hex[23] = "M";    
-    hex[24] = "N";    
-    hex[25] = "O";    
-    hex[26] = "P";    
-    hex[27] = "Q";    
-    hex[28] = "R";    
-    hex[29] = "S";    
-    hex[30] = "T";    
-    hex[31] = "U";    
-    hex[32] = "V";    
-    hex[33] = "W";    
-    hex[34] = "X";    
-    hex[35] = "Y";    
-    hex[36] = "Z";    
-}
+	function Populate(){
+	    hex = new MakeArray();
+	    hex[1] = "0";    
+	    hex[2] = "1";    
+	    hex[3] = "2";    
+	    hex[4] = "3";    
+	    hex[5] = "4";    
+	    hex[6] = "5";    
+	    hex[7] = "6";    
+	    hex[8] = "7";    
+	    hex[9] = "8";    
+	    hex[10] = "9";    
+	    hex[11] = "A";    
+	    hex[12] = "B";    
+	    hex[13] = "C";    
+	    hex[14] = "D";    
+	    hex[15] = "E";    
+	    hex[16] = "F";    
+	    hex[17] = "G";    
+	    hex[18] = "H";    
+	    hex[19] = "I";    
+	    hex[20] = "J";    
+	    hex[21] = "K";    
+	    hex[22] = "L";    
+	    hex[23] = "M";    
+	    hex[24] = "N";    
+	    hex[25] = "O";    
+	    hex[26] = "P";    
+	    hex[27] = "Q";    
+	    hex[28] = "R";    
+	    hex[29] = "S";    
+	    hex[30] = "T";    
+	    hex[31] = "U";    
+	    hex[32] = "V";    
+	    hex[33] = "W";    
+	    hex[34] = "X";    
+	    hex[35] = "Y";    
+	    hex[36] = "Z";    
+	}
 
-// function DecimaltoAnother(N, radix)
-// 
-// return representation of a number N
-// in the system based on radix 
-//
-function DecimaltoAnother(N, radix)
-{
-    s = "";
+	// function DecimaltoAnother(N, radix)
+	// 
+	// return representation of a number N
+	// in the system based on radix 
+	//
+	function DecimaltoAnother(N, radix){
+	    s = "";
 
-    A = N;
+	    A = N;
 
-    while (A >= radix)
-    {
-        B = A % radix;
-        A = Math.floor(A / radix);
-        s += hex[B+1];
-    }
+	    while (A >= radix){
+		B = A % radix;
+		A = Math.floor(A / radix);
+		s += hex[B+1];
+	    }
 
-    s += hex[A+1];
+	    s += hex[A+1];
 
-    return Transpose(s);
-}
+	    return Transpose(s);
+	}
 
-// function Transpose(s)
-//
-// return a string written from right to left
-//
-function Transpose(s)
-{
- N = s.length;
+	// function Transpose(s)
+	//
+	// return a string written from right to left
+	//
+	function Transpose(s){
+	 N = s.length;
 
-    t = "";
+	    t = "";
 
-    for (i = 0; i < N; i++)
-        t = t + s.substring(N-i-1, N-i);
+	    for (i = 0; i < N; i++){
+		t = t + s.substring(N-i-1, N-i);
+	    }
 
-    s = t;
-    return s;
-}
+	    s = t;
+	    return s;
+	}
 
 	if(cdm_con == "h2d"){
 		answer = parseInt(number1, 16);//hex
@@ -289,8 +252,8 @@ function Transpose(s)
 		alert("error!");
 	}
 	
-		document.getElementById("number1").value = answer;//output the answer to the first textbox
-		document.getElementById("number2").value = "";//clear the second textbox
+	document.getElementById("number1").value = answer;//output the answer to the first textbox
+	document.getElementById("number2").value = "";//clear the second textbox
 		
 	answerTest = document.getElementById("number1").value;
 	
@@ -298,5 +261,4 @@ function Transpose(s)
 		alert("please make your selection carefully");
 		document.getElementById("number1").value = number1;//output the answer to the first textbox
 	}
-
 }
