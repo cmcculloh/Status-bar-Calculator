@@ -1,22 +1,38 @@
-document.onkeyup = KeyCheck;       
+document.onkeydown = KeyDownCheck;
+document.onkeyup = KeyUpCheck;
 
+var altKeyDown = false;
+var ctrlKeyDown = false;
+var cKeyDown = false;
 
-function KeyCheck(e){
+function KeyDownCheck(e){
     //http://www.tutorialized.com/view/tutorial/Get-key-press-event-using-JavaScript/9689
     var KeyID = (window.event) ? event.keyCode : e.keyCode;
 
-    //alert(KeyID);
-    
-    //make a function that capture all three keypresses and then checks to see if they are ctrl-alt-c, and if so, places focus in textbox.
-    
-    switch(KeyID){
-	case 16:
-	alert("Shift");
-	break; 
-	case 17:
-	alert("Ctrl");
-	break;
-   }
+    if(KeyID == "17"){
+    	ctrlKeyDown = true;
+    }else if(KeyID == "18"){
+    	altKeyDown = true;
+    }else if(KeyID == "67"){
+    	cKeyDown = true;
+    }
+
+    if(altKeyDown && ctrlKeyDown && cKeyDown){
+    	cdm_hide("calcPanel");
+    	document.getElementById("number2").focus();
+    }
+}
+
+function KeyUpCheck(e){
+    var KeyID = (window.event) ? event.keyCode : e.keyCode;
+
+    if(KeyID == "17"){
+    	ctrlKeyDown = false;
+    }else if(KeyID == "18"){
+    	altKeyDown = false;
+    }else if(KeyID == "67"){
+    	cKeyDown = false;
+    }
 }
 
 function cdm_changeOperator(newOperator){
