@@ -6,11 +6,11 @@
 
   <statusbarpanel id="calc_ico" class="statusbarpanel-iconic" onclick="cdm_hide('calcPanel');" src="chrome://calculloh/content/calc.gif" context="calculloh-contextmenu" />
 
-  <!--<popupset>
+  <popupset>
   <popup id="calculloh-contextmenu" orient="vertical">
 		<menuitem label="options" accesskey="" oncommand="calcullohOpenOptions()"/>
   </popup>
-  </popupset>-->
+  </popupset>
 	
   <statusbarpanel id="calcPanel" style="display: none; height: 24px; padding: 0px">
    

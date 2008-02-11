@@ -4,7 +4,7 @@ function calcullohOpenOptions (event) {
 
 function cdm_changeOperator(newOperator){
 	document.getElementById("operatorLabel").value = newOperator;
-}//end cdm_changeOperator function
+}
 
 function doType(e)  {          //  when something is typed
    //alert(e.which);
@@ -30,11 +30,8 @@ function quickCalc(qnumber){
 }
 
 function cdm_pressAKey(whichOne){//open function
-
-	//alert("I'm alive!");
 	var number = document.getElementById(whichOne).value;//Gets number
 	var numberTwo = document.getElementById('number2').value;//Gets number from second text-box
-	//alert(number);
 	relNum1 = /[\W]/;
 	relAdd = /[\+]/;
 	relSub = /[\-]/;
@@ -42,15 +39,10 @@ function cdm_pressAKey(whichOne){//open function
 	relMul = /[\*]/;
 	relDiv = /[\/]/;
 	relEq = /[=]/;
-	//alert("got the re");
 
 	if (relNum1.test(number)){//open if1
-
-		//alert("do something!");
-
 		if (relAdd.test(number)){
 			number = number.replace(/\+/g, "");
-			//alert("removed +");
 			if (numberTwo != ""){
 				quickCalc(number);	
 			}else{
@@ -60,7 +52,6 @@ function cdm_pressAKey(whichOne){//open function
 		}
 		if (relSub.test(number)){		
 			number = number.replace(/\-/g, "");
-			//alert("removed -");
 			if (numberTwo != ""){
 				quickCalc(number);	
 			}else{
@@ -71,7 +62,6 @@ function cdm_pressAKey(whichOne){//open function
 		
 		if (relMul.test(number)){
 			number = number.replace(/\*/g, "");
-			//alert("removed *");
 			if (numberTwo != ""){
 				quickCalc(number);	
 			}else{
@@ -83,7 +73,6 @@ function cdm_pressAKey(whichOne){//open function
 		
 		if (relDiv.test(number)){
 			number = number.replace(/\//g, "");
-			//alert("removed /");
 			if (numberTwo != ""){
 				quickCalc(number);	
 			}else{
@@ -95,7 +84,6 @@ function cdm_pressAKey(whichOne){//open function
 		
 		if (relPow.test(number)){
 			number = number.replace(/\^/g, "");
-			//alert("removed ^");
 			if (numberTwo != ""){
 				quickCalc(number);	
 			}else{
@@ -107,17 +95,10 @@ function cdm_pressAKey(whichOne){//open function
 		
 		if (relEq.test(number)){
 			number = number.replace(/=/g, "");
-			//alert("removed =");
 			quickCalc(number);
 		}
-		
-		//document.getElementById(whichOne).value = number;//Artifact... I don't think i need this anymore...
-
-
 	}else{//close if1
-
 		//alert("do nothing");
-
 	}
 
 }//close function
