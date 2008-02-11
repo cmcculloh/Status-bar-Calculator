@@ -1,3 +1,24 @@
+document.onkeyup = KeyCheck;       
+
+
+function KeyCheck(e){
+    //http://www.tutorialized.com/view/tutorial/Get-key-press-event-using-JavaScript/9689
+    var KeyID = (window.event) ? event.keyCode : e.keyCode;
+
+    //alert(KeyID);
+    
+    //make a function that capture all three keypresses and then checks to see if they are ctrl-alt-c, and if so, places focus in textbox.
+    
+    switch(KeyID){
+	case 16:
+	alert("Shift");
+	break; 
+	case 17:
+	alert("Ctrl");
+	break;
+   }
+}
+
 function cdm_changeOperator(newOperator){
 	document.getElementById("operatorLabel").value = newOperator;
 }
