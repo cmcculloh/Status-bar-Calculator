@@ -14,7 +14,7 @@
 	
   <statusbarpanel id="calcPanel" style="display: none; height: 24px; padding: 0px">
    
-   <textbox style="width: 50px; padding: 0px 2px; margin: 0px;" id="number1" oninput="cdm_pressAKey('number1');" />
+   <textbox style="width: 50px; padding: 0px 2px; margin: 0px;-moz-user-focus: normal;" id="number1" oninput="cdm_pressAKey('number1');" />
    <menu id="operator" label="">
    <label id="operatorLabel" value="+" />
    	<menupopup id="menu_CalcPopup" >

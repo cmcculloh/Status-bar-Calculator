@@ -18,8 +18,11 @@ function KeyDownCheck(e){
     }
 
     if(altKeyDown && ctrlKeyDown && cKeyDown){
+    	//alert("test");
     	cdm_hide("calcPanel");
-    	document.getElementById("number2").focus();
+    	//http://developer.mozilla.org/en/docs/XUL_Tutorial:Focus_and_Selection#The_focus_event
+    	document.getElementById("number1").value = document.commandDispatcher.focusedElement;
+    	//document.getElementById("number2").focus();
     }
 }
 
@@ -81,7 +84,7 @@ function cdm_pressAKey(whichOne){
 		if (relAdd.test(number)){
 			number = number.replace(/\+/g, "");
 			cdm_changeOperator('+');
-		}else if (relSub.test(number)){		
+		}else if (relSub.test(number)){
 			number = number.replace(/\-/g, "");
 			cdm_changeOperator('-');
 		}else if (relMul.test(number)){
@@ -101,7 +104,7 @@ function cdm_pressAKey(whichOne){
 		//if operand entered into second textbox
 		if (numberTwo != ""){
 			//calculate the answer
-			quickCalc(number);	
+			quickCalc(number);
 		}else{
 			//put the focus into the second textbox
 			focus2(number);
@@ -115,13 +118,13 @@ function cdm_calculate(){
 	var number1 = document.getElementById("number1").value;//Gets number 1
 	var number2 = document.getElementById("number2").value;//Gets number 2
 	var operator = document.getElementById("operatorLabel").value;//gets operation to perform
-	
+
 	if (number2 == "" || number1 == ""){//test for empty textbox
 	}else{//if not empty textbox
-	
+
 		re1 = /[,]/;//checks for commas
 		re2 = /[a-zA-Z]/;//checks for letters
-	
+
 		if (re1.test(number1) || re1.test(number2)){//test for commas
 			alert("Please use only numbers. No commas.");
 		}else if(re2.test(number1) || re2.test(number2)){//test for letters
@@ -175,8 +178,8 @@ function cdm_hide(hideWhat){
 	}else{
 		hideMe.display = "none";
 	}
-	
-	document.getElementById('number1').focus();
+
+	//document.getElementById('number1').focus();
 }//end hide
 
 function cdm_convert(cdm_con){
@@ -191,48 +194,48 @@ function cdm_convert(cdm_con){
 
 	function Populate(){
 	    hex = new MakeArray();
-	    hex[1] = "0";    
-	    hex[2] = "1";    
-	    hex[3] = "2";    
-	    hex[4] = "3";    
-	    hex[5] = "4";    
-	    hex[6] = "5";    
-	    hex[7] = "6";    
-	    hex[8] = "7";    
-	    hex[9] = "8";    
-	    hex[10] = "9";    
-	    hex[11] = "A";    
-	    hex[12] = "B";    
-	    hex[13] = "C";    
-	    hex[14] = "D";    
-	    hex[15] = "E";    
-	    hex[16] = "F";    
-	    hex[17] = "G";    
-	    hex[18] = "H";    
-	    hex[19] = "I";    
-	    hex[20] = "J";    
-	    hex[21] = "K";    
-	    hex[22] = "L";    
-	    hex[23] = "M";    
-	    hex[24] = "N";    
-	    hex[25] = "O";    
-	    hex[26] = "P";    
-	    hex[27] = "Q";    
-	    hex[28] = "R";    
-	    hex[29] = "S";    
-	    hex[30] = "T";    
-	    hex[31] = "U";    
-	    hex[32] = "V";    
-	    hex[33] = "W";    
-	    hex[34] = "X";    
-	    hex[35] = "Y";    
-	    hex[36] = "Z";    
+	    hex[1] = "0";
+	    hex[2] = "1";
+	    hex[3] = "2";
+	    hex[4] = "3";
+	    hex[5] = "4";
+	    hex[6] = "5";
+	    hex[7] = "6";
+	    hex[8] = "7";
+	    hex[9] = "8";
+	    hex[10] = "9";
+	    hex[11] = "A";
+	    hex[12] = "B";
+	    hex[13] = "C";
+	    hex[14] = "D";
+	    hex[15] = "E";
+	    hex[16] = "F";
+	    hex[17] = "G";
+	    hex[18] = "H";
+	    hex[19] = "I";
+	    hex[20] = "J";
+	    hex[21] = "K";
+	    hex[22] = "L";
+	    hex[23] = "M";
+	    hex[24] = "N";
+	    hex[25] = "O";
+	    hex[26] = "P";
+	    hex[27] = "Q";
+	    hex[28] = "R";
+	    hex[29] = "S";
+	    hex[30] = "T";
+	    hex[31] = "U";
+	    hex[32] = "V";
+	    hex[33] = "W";
+	    hex[34] = "X";
+	    hex[35] = "Y";
+	    hex[36] = "Z";
 	}
 
 	// function DecimaltoAnother(N, radix)
-	// 
+	//
 	// return representation of a number N
-	// in the system based on radix 
+	// in the system based on radix
 	//
 	function DecimaltoAnother(N, radix){
 	    s = "";
@@ -281,19 +284,19 @@ function cdm_convert(cdm_con){
 		answer = DecimaltoAnother(answer, 8);//oct
 	} else if(cdm_con == "b2d"){
 		answer = parseInt(number1, 2);//bin
-		answer = answer;//dec	
+		answer = answer;//dec
 	} else if(cdm_con == "d2b"){
 		answer = parseInt(number1, 10);//dec
 		answer = DecimaltoAnother(answer, 2);//bin
 	} else {
 		alert("error!");
 	}
-	
+
 	document.getElementById("number1").value = answer;//output the answer to the first textbox
 	document.getElementById("number2").value = "";//clear the second textbox
-		
+
 	answerTest = document.getElementById("number1").value;
-	
+
 	if(answerTest == "NaN"){
 		alert("please make your selection carefully");
 		document.getElementById("number1").value = number1;//output the answer to the first textbox
