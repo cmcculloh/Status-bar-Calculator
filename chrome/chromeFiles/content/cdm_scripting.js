@@ -1,5 +1,7 @@
 document.onkeydown = KeyDownCheck;
 document.onkeyup = KeyUpCheck;
+//cdm_hide('calcPanel');
+
 
 var altKeyDown = false;
 var ctrlKeyDown = false;
@@ -18,11 +20,7 @@ function KeyDownCheck(e){
     }
 
     if(altKeyDown && ctrlKeyDown && cKeyDown){
-    	//alert("test");
-    	cdm_hide("calcPanel");
-    	//http://developer.mozilla.org/en/docs/XUL_Tutorial:Focus_and_Selection#The_focus_event
-    	document.getElementById("number1").value = document.commandDispatcher.focusedElement;
-    	//document.getElementById("number2").focus();
+    	cdm_hide('calcPanel');
     }
 }
 
@@ -36,6 +34,8 @@ function KeyUpCheck(e){
     }else if(KeyID == "67"){
     	cKeyDown = false;
     }
+    
+        document.getElementById('number1').focus();
 }
 
 function cdm_changeOperator(newOperator){
