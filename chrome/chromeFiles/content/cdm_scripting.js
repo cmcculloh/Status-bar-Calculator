@@ -1,7 +1,5 @@
 document.onkeydown = KeyDownCheck;
 document.onkeyup = KeyUpCheck;
-//cdm_hide('calcPanel');
-
 
 var altKeyDown = false;
 var ctrlKeyDown = false;
@@ -17,25 +15,27 @@ function KeyDownCheck(e){
     	altKeyDown = true;
     }else if(KeyID == "67"){
     	cKeyDown = true;
+    }else if(KeyID == "100"){
+    	fourKeyDown = true;
+    }else if(KeyID == "9"){
+    	tabKeyDown = true;
     }
-
+  
     if(altKeyDown && ctrlKeyDown && cKeyDown){
     	cdm_hide('calcPanel');
+    }else if(ctrlKeyDown && altKeyDown && (fourKeyDown || tabKeyDown)){
+    	focus1();
     }
 }
 
 function KeyUpCheck(e){
     var KeyID = (window.event) ? event.keyCode : e.keyCode;
 
-    if(KeyID == "17"){
-    	ctrlKeyDown = false;
-    }else if(KeyID == "18"){
-    	altKeyDown = false;
-    }else if(KeyID == "67"){
-    	cKeyDown = false;
-    }
-    
-        document.getElementById('number1').focus();
+    ctrlKeyDown = false;
+    altKeyDown = false;
+    cKeyDown = false;
+    fourKeyDown = false;
+    tabKeyDown = false;
 }
 
 function cdm_changeOperator(newOperator){
@@ -56,6 +56,12 @@ function doType(e)  {          //  when something is typed
 function focus2(fnumber){
 		document.getElementById("number2").focus();
 		document.getElementById("number1").value = fnumber;
+}
+
+function focus1(){
+	document.getElementById("number1").focus();
+	document.getElementById("number2").value = "";
+	document.getElementById("number1").value = "";
 }
 
 function quickCalc(qnumber){
@@ -179,7 +185,8 @@ function cdm_hide(hideWhat){
 		hideMe.display = "none";
 	}
 
-	//document.getElementById('number1').focus();
+	//put sleep condition here to make it wait a few milli-seconds and then do focus
+	setTimeout("document.getElementById('number1').focus()", 100);
 }//end hide
 
 function cdm_convert(cdm_con){
