@@ -2,14 +2,15 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
-  	<em:id>calculator@cmcculloh</em:id>
+  	<em:id>calculator@statusbarcalculator.com</em:id>
         <em:name>Status Bar Calculator</em:name>
-        <em:version>1.9.0</em:version>
+        <em:version>2.0</em:version>
         <em:creator>Christopher McCulloh</em:creator>
         <em:description>It's a tiny calculator icon in the status bar. Click it, to expand it and use it. Click the '+' to change to '-', '/', '*', or '^'. Click '=' to get the answer (output to the first textbox). Click the calcultor icon to shrink it to just the icon when not using it. Also, you can use the &quot;+&quot;, &quot;-&quot;, &quot;^&quot;, &quot;/&quot;, &quot;*&quot;, and &quot;=&quot; keys to preform those functions. Ctrl+Alt+C to expand/collapse and set focus, Ctrl+Alt+Numpad4(or tab) to set focus from second textbox back to first text box and empty both boxes, Shift+Tab to set focus from second text box to first text box and highlight contents of first textbox</em:description>
         <em:homepageURL>http://www.statusbarcalculator.com</em:homepageURL>
         <em:iconURL>chrome://calculloh/content/ico.gif</em:iconURL>
         <em:type>2</em:type>
+        <em:contributor>Jerrie</em:contributor>
         <em:contributor>Mike</em:contributor>
         <em:contributor>Fer</em:contributor>
 	<em:targetApplication>
