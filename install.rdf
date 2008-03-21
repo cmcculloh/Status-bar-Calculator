@@ -10,9 +10,10 @@
         <em:homepageURL>http://www.statusbarcalculator.com</em:homepageURL>
         <em:iconURL>chrome://calculloh/content/ico.gif</em:iconURL>
         <em:type>2</em:type>
+        <em:contributor>Tom Kennedy</em:contributor>
         <em:contributor>Jerrie</em:contributor>
-        <em:contributor>Mike</em:contributor>
-        <em:contributor>Fer</em:contributor>
+        <em:contributor>Mike Daniels</em:contributor>
+        <em:contributor>Fernando Aguirre Baeza</em:contributor>
 	<em:targetApplication>
 		<Description>
 			<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id> 
