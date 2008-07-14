@@ -104,7 +104,8 @@ function cdm_pressAKey(whichOne){
 			cdm_changeOperator('^');
 		}else if (relEq.test(number)){
 			number = number.replace(/=/g, "");
-			quickCalc(number);
+			//commented out because it was calculating twice...
+			//quickCalc(number);
 		}
 
 		//if operand entered into second textbox
