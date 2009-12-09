@@ -4,9 +4,14 @@
 <style>
 ul {list-style-type:none}
 .problem{float: left; color: #888;}
+#fraction{text-align: right;}
 </style>
 
 <input type="text" id="problemBox" onChange="calculate();"/>
+<div id="fraction">
+	<span id="theFraction"></span>
+	<input type="button" onclick="fraction();" value="%" />
+</div>
 <ul id="problemHistory"></ul>
 <a id="hackLink" href="http://etherpad.com/statusbarcalculator">Hack this extension!</a>
 <a id="extensionSite" href="http://www.statusbarcalculator.com">statusbarcalculator.com</a>
@@ -38,14 +43,13 @@ function calculate(){
 }
 
 function setBadge(solution){
-    var shortSolution;
-    if(solution > 999){
+    solution = solution.toString();
+    if(solution.length > 3){
         //adjust to 2 digits with "..." after
         shortSolution = solution.toString().substr(0,2) + "...";
     }else{
     	shortSolution = solution.toString();
     }
-    solution = solution.toString();
 
     chrome.browserAction.setTitle({title:solution});
     chrome.browserAction.setBadgeText({text:shortSolution});
@@ -57,6 +61,38 @@ function refreshHistory(){
         theHtml += history[i - 1];
     }
     document.getElementById("problemHistory").innerHTML = theHtml;
+}
+
+/**
+ * Convert decimal number to fraction
+ *
+ * Code by Adam Brill
+ *
+ * Taken from: http://www.webdeveloper.com/forum/archive/index.php/t-18205.html
+ */
+function fraction(){
+	decimal=document.getElementById('problemBox').value;
+	if(!decimal){
+		decimal=this;
+	}
+	whole = String(decimal).split('.')[0];
+	decimal = parseFloat("."+String(decimal).split('.')[1]);
+	num = "1";
+	for(z=0; z<String(decimal).length-2; z++){
+		num += "0";
+	}
+	decimal = parseInt(decimal*num);
+	num = parseInt(num);
+	for(z=2; z<decimal+1; z++){
+		if(decimal%z==0 && num%z==0){
+			decimal = decimal/z;
+			num = num/z;
+			z=2;
+		}
+	}
+	var answer = ((whole==0)?"" : whole+" ")+decimal+"/"+num;
+	document.getElementById("theFraction").innerHTML = answer;
+	setBadge(answer);
 }
 </script>
 </body>
