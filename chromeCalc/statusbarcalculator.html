@@ -86,9 +86,9 @@ function fraction(){
 	}
 	var whole = String(number).split('.')[0];
 	var decimal = parseFloat("."+String(number).split('.')[1]);
-	if(decimal.toString.length > 3){
-		number = Math.round(number * 100);
-		decimal = parseFloat("."+String(decimal).split('.')[1]);
+	if(decimal.toString().length > 3){
+		number = Math.round(number * 1000)/1000;
+		decimal = parseFloat("."+String(number).split('.')[1]);
 	}
 	var num = "1";
 	for(z=0; z<String(decimal).length-2; z++){
