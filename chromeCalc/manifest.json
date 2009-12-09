@@ -2,7 +2,6 @@
   "name": "Status-bar Calculator",
   "version": "0.2",
   "description": "It's a tiny calculator. Enter the expression you would like to evaluate and hit enter to go!",
-  "update_url": "http://statusbarcalculator.com/statusbarcalculator/trunk/chromeCalc/updates.xml"
   "browser_action": {
     "default_icon": "calc.png",
     "default_title": "Status-bar Calculator",
