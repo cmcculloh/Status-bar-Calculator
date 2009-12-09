@@ -1,0 +1,63 @@
+<html>
+<body>
+
+<style>
+ul {list-style-type:none}
+.problem{float: left; color: #888;}
+</style>
+
+<input type="text" id="problemBox" onChange="calculate();"/>
+<ul id="problemHistory"></ul>
+<a id="hackLink" href="http://etherpad.com/statusbarcalculator">Hack this extension!</a>
+<a id="extensionSite" href="http://www.statusbarcalculator.com">statusbarcalculator.com</a>
+
+<script>
+var history = [];
+
+document.getElementById("hackLink").addEventListener("click", gotoLink);
+document.getElementById("extensionSite").addEventListener("click", gotoLink);
+
+function gotoLink(event){
+  var href = event.currentTarget.href;
+  chrome.tabs.create({url: href});
+}
+
+function calculate(){
+    var problem = document.getElementById("problemBox").value;
+    var solution = eval(problem);
+
+    //Place problem after solution since they are displayed in reverse order...
+    history.push('<li class="solution">= ' + solution + '</li>');
+    history.push('<li class="problem">' + problem + '</li>');
+
+    refreshHistory();
+
+    document.getElementById("problemBox").value = solution;
+
+    setBadge(solution);
+}
+
+function setBadge(solution){
+    var shortSolution;
+    if(solution > 999){
+        //adjust to 2 digits with "..." after
+        shortSolution = solution.toString().substr(0,2) + "...";
+    }else{
+    	shortSolution = solution.toString();
+    }
+    solution = solution.toString();
+
+    chrome.browserAction.setTitle({title:solution});
+    chrome.browserAction.setBadgeText({text:shortSolution});
+}
+
+function refreshHistory(){
+    var theHtml = "";
+    for(var i = history.length; i > 0; i--){
+        theHtml += history[i - 1];
+    }
+    document.getElementById("problemHistory").innerHTML = theHtml;
+}
+</script>
+</body>
+</html>
