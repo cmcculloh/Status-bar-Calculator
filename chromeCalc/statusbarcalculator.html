@@ -7,17 +7,23 @@ ul {list-style-type:none}
 #fraction{text-align: right;}
 </style>
 
+<div id="calculator">
 <input type="text" id="problemBox" onChange="calculate();"/>
 <div id="fraction">
 	<span id="theFraction"></span>
 	<input type="button" onclick="fraction();" value="%" />
 </div>
 <ul id="problemHistory"></ul>
-<a id="hackLink" href="http://etherpad.com/statusbarcalculator">Hack this extension!</a>
-<a id="extensionSite" href="http://www.statusbarcalculator.com">statusbarcalculator.com</a>
+<a id="clearHistory" href="javascript:clearHistory();">clear</a>
+</div>
+
+<div id="links">
+	<a id="hackLink" href="http://etherpad.com/statusbarcalculator">Hack this extension!</a>
+	<a id="extensionSite" href="http://www.statusbarcalculator.com">statusbarcalculator.com</a>
+</div>
 
 <script>
-var history = [];
+refreshHistory();
 
 document.getElementById("hackLink").addEventListener("click", gotoLink);
 document.getElementById("extensionSite").addEventListener("click", gotoLink);
@@ -31,11 +37,13 @@ function calculate(){
     var problem = document.getElementById("problemBox").value;
     var solution = eval(problem);
 
-    //Place problem after solution since they are displayed in reverse order...
-    history.push('<li class="solution">= ' + solution + '</li>');
-    history.push('<li class="problem">' + problem + '</li>');
-
-    refreshHistory();
+    if(problem != solution){
+		var history = '<li class="problem">' + problem + '</li>';
+		history += '<li class="solution">= ' + solution + '</li>';
+		history += localStorage["calculation_history"];
+		localStorage["calculation_history"] = history;
+		refreshHistory();
+	}
 
     document.getElementById("problemBox").value = solution;
 
@@ -56,13 +64,14 @@ function setBadge(solution){
 }
 
 function refreshHistory(){
-    var theHtml = "";
-    for(var i = history.length; i > 0; i--){
-        theHtml += history[i - 1];
-    }
-    document.getElementById("problemHistory").innerHTML = theHtml;
+    var history = localStorage["calculation_history"];
+    document.getElementById("problemHistory").innerHTML = history;
 }
 
+function clearHistory(){
+	localStorage["calculation_history"] = "";
+	refreshHistory();
+}
 /**
  * Convert decimal number to fraction
  *
@@ -71,13 +80,17 @@ function refreshHistory(){
  * Taken from: http://www.webdeveloper.com/forum/archive/index.php/t-18205.html
  */
 function fraction(){
-	decimal=document.getElementById('problemBox').value;
-	if(!decimal){
-		decimal=this;
+	var number=document.getElementById('problemBox').value;
+	if(!number){
+		number=this;
 	}
-	whole = String(decimal).split('.')[0];
-	decimal = parseFloat("."+String(decimal).split('.')[1]);
-	num = "1";
+	var whole = String(number).split('.')[0];
+	var decimal = parseFloat("."+String(number).split('.')[1]);
+	if(decimal.toString.length > 3){
+		number = Math.round(number * 100);
+		decimal = parseFloat("."+String(decimal).split('.')[1]);
+	}
+	var num = "1";
 	for(z=0; z<String(decimal).length-2; z++){
 		num += "0";
 	}
@@ -93,6 +106,13 @@ function fraction(){
 	var answer = ((whole==0)?"" : whole+" ")+decimal+"/"+num;
 	document.getElementById("theFraction").innerHTML = answer;
 	setBadge(answer);
+
+		var history = '<li class="problem"></li>';
+		history += '<li class="solution">' + answer + '</li>';
+		history += localStorage["calculation_history"];
+		localStorage["calculation_history"] = history;
+		refreshHistory();
+
 }
 </script>
 </body>
