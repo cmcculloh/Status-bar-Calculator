@@ -59,7 +59,7 @@ function setBadge(solution){
 }
 
 function refreshHistory(problem, solution){
-    var history;
+    var history = "";
     if(problem.toString().length > 0 || solution.toString().length > 0){
         history = '<li class="problem">' + problem + '</a></li>';
         history += '<li class="equalSign">=</li><li class="solution">' + solution + '</li>';
@@ -67,9 +67,7 @@ function refreshHistory(problem, solution){
         localStorage["calculation_history"] = history;
     }
 
-    if(history.length > 0){
-        document.getElementById("problemHistory").innerHTML = history;
-    }
+    document.getElementById("problemHistory").innerHTML = history;
 
     var historyLinks = document.getElementsByClassName("solution");
     for(var i=0,ii=historyLinks.length;i<ii;i++){
