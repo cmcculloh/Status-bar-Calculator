@@ -1,22 +1,37 @@
 <html>
-<body>
-
+<head>
 <style>
-ul {list-style-type:none}
-.problem, .equalSign{float: left; color: #888;}
+ul{list-style-type:none;margin:0px;padding:0px;}
+#problemHistory {height: 100px;width:188px;overflow:auto;clear:both;display:block;padding:5px;border:1px solid #aaa;background-color:#efefff;}
+li {margin:0px;padding:0px;}
+.problem, .equalSign{float: left; color: #555;}
+.problem a:link{color: #338; text-decoration: none;}
+.equalSign{margin-left: 5px;}
+.solution, .noLinkSolution{float:right;}
+.solution a:link{color: #003; text-decoration: none;}
+.clearfix{clear:both;}
+#problemBox{width:198px;background-color: #efffff;}
 #fraction{text-align: right;}
+#calculator{width:200px;height:200px;overflow:hidden;padding: 0px;margin:0px;}
+#links{margin: 20px 0 0 0;width:200px;height:40px;overflow:hidden;}
+#controls{width:200px;text-align:right;clear:both;margin-top:10px;}
 </style>
-
+</head>
+<body>
 <div id="calculator">
-<input type="text" id="problemBox" onChange="calculate();"/>
-<div id="fraction">
-        <span id="theFraction"></span>
-        <input type="button" onclick="fraction();" value="%" />
-</div>
-<ul id="problemHistory"></ul>
-<a id="clearHistory" href="javascript:clearHistory();">clear</a>
+	<input type="text" id="problemBox" onChange="calculate();"/>
+	<ul id="problemHistory"></ul>
+	<div id="controls">
+		<input type="button" onclick="fraction();" value="%" title="convert decimal to fraction"/>
+		<input type="button" id="clearHistory" onclick="clearHistory();" value="AC" title="clear history" />
+		<input type="button" id="clearProblemBox" onclick="clearProblemBox();" value="C" title="clear input box"/>
+	</div>
 </div>
 
+<div id="links">
+	<a id="hackLink" href="http://etherpad.com/statusbarcalculator">Hack this extension!</a><br />
+	<a id="extensionSite" href="http://www.statusbarcalculator.com">statusbarcalculator.com</a>
+</div>
 
 <script>
 /**
@@ -83,11 +98,25 @@ function setBadge(solution){
     chrome.browserAction.setBadgeText({text:shortSolution});
 }
 
-function refreshHistory(problem, solution){
+function refreshHistory(problem, solution, linkSolution){
+    //default link solution to true
+    if(linkSolution != false){
+    	linkSolution = true;
+    }
+
     var history = localStorage["calculation_history"];
     if(problem.toString().length > 0 || solution.toString().length > 0){
-        history = '<li class="problem">' + problem + '</a></li>';
-        history += '<li class="equalSign">=</li><li class="solution">' + solution + '</li>';
+        history = '<li class="clearfix"><ul><li class="problem">' + problem + '</li>';
+        history += '<li class="equalSign">=</li>';
+
+        //keep non-linkable solutions from being linked
+        var solutionClass;
+        if(!linkSolution){
+        	solutionClass = 'noLinkSolution';
+        }else{
+        	solutionClass = 'solution';
+        }
+        history += '<li class="' + solutionClass + '">' + solution + '</li></ul></li>';
         history += localStorage["calculation_history"];
         localStorage["calculation_history"] = history;
     }
@@ -104,6 +133,7 @@ function refreshHistory(problem, solution){
         var expression =  historyLinks[i].innerHTML;
         historyLinks[i].innerHTML = '<a href="javascript:reinstate(\'' + expression + '\')">' + expression + '</a>';
     }
+    document.getElementById("problemBox").focus();
 }
 
 function reinstate(expression){
@@ -111,8 +141,14 @@ function reinstate(expression){
     document.getElementById("problemBox").focus();
 }
 function clearHistory(){
-        localStorage["calculation_history"] = "";
-        refreshHistory("","");
+    chrome.browserAction.setTitle({title:"Status-bar Calculator"});
+    chrome.browserAction.setBadgeText({text:""});
+	localStorage["calculation_history"] = "";
+	refreshHistory("","");
+}
+function clearProblemBox(){
+    document.getElementById("problemBox").value = "";
+    document.getElementById("problemBox").focus();
 }
 /**
  * Convert decimal number to fraction
@@ -146,11 +182,11 @@ function fraction(){
                 }
         }
         var answer = ((whole==0)?"" : whole+" ")+decimal+"/"+num;
-        document.getElementById("theFraction").innerHTML = answer;
 
-        refreshHistory(number, answer);
+        refreshHistory(number, answer, false);
         setBadge(answer);
 }
 </script>
+
 </body>
 </html>
