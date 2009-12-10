@@ -3,24 +3,20 @@
 
 <style>
 ul {list-style-type:none}
-.problem{float: left; color: #888;}
+.problem, .equalSign{float: left; color: #888;}
 #fraction{text-align: right;}
 </style>
 
 <div id="calculator">
 <input type="text" id="problemBox" onChange="calculate();"/>
 <div id="fraction">
-	<span id="theFraction"></span>
-	<input type="button" onclick="fraction();" value="%" />
+        <span id="theFraction"></span>
+        <input type="button" onclick="fraction();" value="%" />
 </div>
 <ul id="problemHistory"></ul>
 <a id="clearHistory" href="javascript:clearHistory();">clear</a>
 </div>
 
-<div id="links">
-	<a id="hackLink" href="http://etherpad.com/statusbarcalculator">Hack this extension!</a>
-	<a id="extensionSite" href="http://www.statusbarcalculator.com">statusbarcalculator.com</a>
-</div>
 
 <script>
 refreshHistory();
@@ -34,16 +30,15 @@ function gotoLink(event){
 }
 
 function calculate(){
-    var problem = document.getElementById("problemBox").value;
+    var problemText = document.getElementById("problemBox").value;
+    //patch contributed by bwrobinett (THANKS!)
+    //check if problem contains ^ symbol
+    problem = problemText.replace(/(\w+)\^(\w+)/g, "Math.pow($1,$2)");
     var solution = eval(problem);
 
     if(problem != solution){
-		var history = '<li class="problem">' + problem + '</li>';
-		history += '<li class="solution">= ' + solution + '</li>';
-		history += localStorage["calculation_history"];
-		localStorage["calculation_history"] = history;
-		refreshHistory();
-	}
+        refreshHistory(problemText, solution);
+    }
 
     document.getElementById("problemBox").value = solution;
 
@@ -56,21 +51,45 @@ function setBadge(solution){
         //adjust to 2 digits with "..." after
         shortSolution = solution.toString().substr(0,2) + "...";
     }else{
-    	shortSolution = solution.toString();
+            shortSolution = solution.toString();
     }
 
     chrome.browserAction.setTitle({title:solution});
     chrome.browserAction.setBadgeText({text:shortSolution});
 }
 
-function refreshHistory(){
-    var history = localStorage["calculation_history"];
-    document.getElementById("problemHistory").innerHTML = history;
+function refreshHistory(problem, solution){
+    var history;
+    if(problem.toString().length > 0 || solution.toString().length > 0){
+        history = '<li class="problem">' + problem + '</a></li>';
+        history += '<li class="equalSign">=</li><li class="solution">' + solution + '</li>';
+        history += localStorage["calculation_history"];
+        localStorage["calculation_history"] = history;
+    }
+
+    if(history.length > 0){
+        document.getElementById("problemHistory").innerHTML = history;
+    }
+
+    var historyLinks = document.getElementsByClassName("solution");
+    for(var i=0,ii=historyLinks.length;i<ii;i++){
+        var expression =  historyLinks[i].innerHTML;
+        historyLinks[i].innerHTML = '<a href="javascript:reinstate(\'' + expression + '\')">' + expression + '</a>';
+    }
+    historyLinks = document.getElementsByClassName("problem");
+    for(var i=0,ii=historyLinks.length;i<ii;i++){
+        var expression =  historyLinks[i].innerHTML;
+        historyLinks[i].innerHTML = '<a href="javascript:reinstate(\'' + expression + '\')">' + expression + '</a>';
+    }
 }
 
+function reinstate(expression){
+    document.getElementById("problemBox").value = expression;
+    document.getElementById("problemBox").focus();
+}
 function clearHistory(){
-	localStorage["calculation_history"] = "";
-	refreshHistory();
+        localStorage["calculation_history"] = "";
+        refreshHistory("","");
 }
 /**
  * Convert decimal number to fraction
@@ -80,39 +99,34 @@ function clearHistory(){
  * Taken from: http://www.webdeveloper.com/forum/archive/index.php/t-18205.html
  */
 function fraction(){
-	var number=document.getElementById('problemBox').value;
-	if(!number){
-		number=this;
-	}
-	var whole = String(number).split('.')[0];
-	var decimal = parseFloat("."+String(number).split('.')[1]);
-	if(decimal.toString().length > 3){
-		number = Math.round(number * 1000)/1000;
-		decimal = parseFloat("."+String(number).split('.')[1]);
-	}
-	var num = "1";
-	for(z=0; z<String(decimal).length-2; z++){
-		num += "0";
-	}
-	decimal = parseInt(decimal*num);
-	num = parseInt(num);
-	for(z=2; z<decimal+1; z++){
-		if(decimal%z==0 && num%z==0){
-			decimal = decimal/z;
-			num = num/z;
-			z=2;
-		}
-	}
-	var answer = ((whole==0)?"" : whole+" ")+decimal+"/"+num;
-	document.getElementById("theFraction").innerHTML = answer;
-	setBadge(answer);
+        var number=document.getElementById('problemBox').value;
+        if(!number){
+                number=this;
+        }
+        var whole = String(number).split('.')[0];
+        var decimal = parseFloat("."+String(number).split('.')[1]);
+        if(decimal.toString().length > 3){
+                number = Math.round(number * 1000)/1000;
+                decimal = parseFloat("."+String(number).split('.')[1]);
+        }
+        var num = "1";
+        for(z=0; z<String(decimal).length-2; z++){
+                num += "0";
+        }
+        decimal = parseInt(decimal*num);
+        num = parseInt(num);
+        for(z=2; z<decimal+1; z++){
+                if(decimal%z==0 && num%z==0){
+                        decimal = decimal/z;
+                        num = num/z;
+                        z=2;
+                }
+        }
+        var answer = ((whole==0)?"" : whole+" ")+decimal+"/"+num;
+        document.getElementById("theFraction").innerHTML = answer;
 
-		var history = '<li class="problem"></li>';
-		history += '<li class="solution">' + answer + '</li>';
-		history += localStorage["calculation_history"];
-		localStorage["calculation_history"] = history;
-		refreshHistory();
-
+        refreshHistory(number, answer);
+        setBadge(answer);
 }
 </script>
 </body>
