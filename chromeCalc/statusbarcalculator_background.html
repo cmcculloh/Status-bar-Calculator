@@ -1,0 +1,9 @@
+<script>
+var icon = localStorage["icon"];
+if(icon == undefined){
+	icon = "calc16.gif";
+	localStorage["icon"] = icon;
+}
+
+chrome.browserAction.setIcon({"path":localStorage["icon"]});
+</script>

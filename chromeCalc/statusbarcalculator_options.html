@@ -1,7 +1,18 @@
 <html>
 <body>
-<h1>Coming Soon (this is a placeholder)!</h1>
-<p><img src="ico48.gif" /></p>
+<h1>Choose you color:</h1>
+<p><img class="color" src="ico48.gif" /><img class="color" src="icoGreen.gif" /><img class="color" src="icoPurple.gif" /><img class="color" src="icoRed.gif" /></p>
 <p><a href="http://www.statusbarcalculator.com">News/Updates</a></p>
+<script>
+var colors = document.getElementsByClassName("color");
+for(var i=0,ii=colors.length;i<ii;i++){
+	colors[i].addEventListener("click", changeColor);
+}
+
+function changeColor(e){
+	localStorage["icon"] = e.target.src;
+	chrome.browserAction.setIcon({"path":localStorage["icon"]});
+}
+</script>
 </body>
 </html>

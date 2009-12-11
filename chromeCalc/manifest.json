@@ -16,5 +16,6 @@
   "permissions": [
       "tabs"
   ],
-  "options_page": "statusbarcalculator_options.html"
+  "options_page": "statusbarcalculator_options.html",
+  "background_page":"statusbarcalculator_background.html"
 }
