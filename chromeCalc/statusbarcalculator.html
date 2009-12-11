@@ -20,11 +20,12 @@ li {margin:0px;padding:0px;}
 <body>
 <div id="calculator">
 	<input type="text" id="problemBox" onChange="calculate();"/>
-	<ul id="problemHistory"></ul>
+	<ul onclick="problemBoxFocus();" id="problemHistory"></ul>
 	<div id="controls">
-		<input type="button" onclick="fraction();" value="%" title="convert decimal to fraction"/>
+		<input type="button" id="convertToFraction" onclick="fraction();" value="%" title="convert decimal to fraction"/>
 		<input type="button" id="clearHistory" onclick="clearHistory();" value="AC" title="clear history" />
 		<input type="button" id="clearProblemBox" onclick="clearProblemBox();" value="C" title="clear input box"/>
+		<input type="button" id="calculate" onclick="calculate();" value="=" title="calculate"/>
 	</div>
 </div>
 
@@ -71,9 +72,9 @@ function gotoLink(event){
 
 function calculate(){
     var problemText = document.getElementById("problemBox").value;
-    //patch contributed by bwrobinett (THANKS!)
-    //check if problem contains ^ symbol
-    problem = problemText.replace(/(\w+)\^(\w+)/g, "Math.pow($1,$2)");
+    //patch for ^ contributed by bwrobinett (THANKS!)
+    //check if problem contains ^ or ² symbol
+    problem = problemText.replace(/(\w+)\^(\w+)/g, "Math.pow($1,$2)").replace(/(\w+)²/g, "Math.pow($1,2)");
     var solution = eval(problem);
 
     if(problem != solution){
@@ -105,6 +106,10 @@ function refreshHistory(problem, solution, linkSolution){
     }
 
     var history = localStorage["calculation_history"];
+    if(history == undefined){
+    	history = "";
+    	localStorage["calculation_history"] = history;
+    }
     if(problem.toString().length > 0 || solution.toString().length > 0){
         history = '<li class="clearfix"><ul><li class="problem">' + problem + '</li>';
         history += '<li class="equalSign">=</li>';
@@ -133,12 +138,12 @@ function refreshHistory(problem, solution, linkSolution){
         var expression =  historyLinks[i].innerHTML;
         historyLinks[i].innerHTML = '<a href="javascript:reinstate(\'' + expression + '\')">' + expression + '</a>';
     }
-    document.getElementById("problemBox").focus();
+    problemBoxFocus();
 }
 
 function reinstate(expression){
     document.getElementById("problemBox").value = expression;
-    document.getElementById("problemBox").focus();
+    problemBoxFocus();
 }
 function clearHistory(){
     chrome.browserAction.setTitle({title:"Status-bar Calculator"});
@@ -148,6 +153,10 @@ function clearHistory(){
 }
 function clearProblemBox(){
     document.getElementById("problemBox").value = "";
+	problemBoxFocus();
+}
+
+function problemBoxFocus(){
     document.getElementById("problemBox").focus();
 }
 /**

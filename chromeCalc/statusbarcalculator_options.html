@@ -1,8 +1,59 @@
 <html>
 <body>
-<h1>Choose you color:</h1>
+<h1>Status-bar Calculator Options</h1>
+<h2>Choose you color:</h2>
 <p><img class="color" src="ico48.gif" /><img class="color" src="icoGreen.gif" /><img class="color" src="icoPurple.gif" /><img class="color" src="icoRed.gif" /></p>
+<h2>Much more to come soon!</h2>
 <p><a href="http://www.statusbarcalculator.com">News/Updates</a></p>
+<h2>Math</h2>
+<p>All of the math done with the Status-bar Calculator in Chrome is just straight JavaScript, which means you have unfettered access to the Javascript <a href="http://www.w3schools.com/js/js_obj_math.asp">Math</a> object. In fact, you have full access to JavaScript. Try some of the following:</p>
+<p>
+Circle Area (Given r of 5):<br />
+<input type="text" value="Math.PI*Math.pow(5, 2)" /><br />
+<br />
+Circle Circumfrence (Given r of 5):<br />
+<input type="text" value="2*Math.PI*5" /><br />
+<br />
+Triangle Area:<br />
+<input type="text" value="var b=5,h=7; (b * h)/2;" /><br />
+</p>
+<h3>"(n)n" Does not work, put "(n)*n" instead</h3>
+<p>This gets confusing. You have to actually put an operator for the calculation to work. In normal math you can say bh/2 and know you mean (base * height) * .5, but for the calculator, you have to tell it explicitly...</p>
+<p><a href="http://www.w3schools.com/jsref/jsref_obj_math.asp">Complete reference to Math Object Properties</a></p>
+<ul>
+<li>E</li>
+<li>LN2</li>
+<li>LN10</li>
+<li>LOG2E</li>
+<li>LOG10E</li>
+<li>PI</li>
+<li>SQRT1_2</li>
+<li>SQRT2</li>
+</ul>
+
+<p><a href="http://www.w3schools.com/jsref/jsref_obj_math.asp">Complete reference to Math Object Methods</a></p>
+<ul>
+<li>abs(x)</li>
+<li>acos(x)</li>
+<li>asin(x)</li>
+<li>atan(x)</li>
+<li>atan2(y,x)</li>
+<li>ceil(x)</li>
+<li>cos(x)</li>
+<li>exp(x)</li>
+<li>floor(x)</li>
+<li>log(x)</li>
+<li>max(x,y)</li>
+<li>min(x,y)</li>
+<li>pow(x,y)</li>
+<li>random()</li>
+<li>round(x)</li>
+<li>sin(x)</li>
+<li>sqrt(x)</li>
+<li>tan(x)</li>
+<li>toSource()</li>
+<li>valueOf()</li>
+</ul>
 <script>
 var colors = document.getElementsByClassName("color");
 for(var i=0,ii=colors.length;i<ii;i++){
