@@ -1,6 +1,6 @@
 {
   "name": "Status-bar Calculator",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "It's a tiny calculator. Enter the expression you would like to evaluate and hit enter to go!",
   "icons" : {
   	"16":"calc16.gif",
