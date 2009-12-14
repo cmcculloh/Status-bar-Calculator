@@ -19,6 +19,7 @@ li {margin:0px;padding:0px;}
 #more{float:left; width:400px;display:none;margin:0px;padding:0px;overflow:auto;height:250px;background-color:#eee;}
 #container{overflow: hidden;height: 250px;}
 #main{float:right;width:200px;}
+#more ul li ul {margin-left:25px;}
 </style>
 </head>
 <body>
@@ -30,8 +31,16 @@ li {margin:0px;padding:0px;}
 				<ul>
 					<li>Rectangle:
 						<ul>
-							<li><input type="button" onclick="placeFormula('var L=0,W=0;','(L*W)')" value="Area: L*W" /></li>
-							<li><input type="button" onclick="placeFormula('var L=0,W=0;','(2*L)*(2*W)')" value="Perimeter: 2*L + 2*W" /></li>
+							<li>Area: LW <br />
+								<input type="text" value="var L=0,W=0;(L*W)"/>
+								<input type="button" onclick="placeFormula('var L=0,W=0;','(L*W)')" value="Place" />
+								<input type="button" onclick="placeFormula('var L=0,W=0;','(L*W)')" value="Append" />
+							</li>
+							<li>Perimeter: 2L+2W <br />
+								<input type="text" value="var L=0,W=0;(2*L)*(2*W)"/>
+								<input type="button" onclick="placeFormula('var L=0,W=0;','(2*L)*(2*W)')" value="Place" />
+								<input type="button" onclick="placeFormula('var L=0,W=0;','(2*L)*(2*W)')" value="Append" />
+							</li>
 						</ul>
 					</li>
 					<li>Triangle:
