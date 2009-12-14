@@ -1,6 +1,6 @@
 {
   "name": "Status-bar Calculator",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "It's a tiny calculator. Enter the expression you would like to evaluate and hit enter to go!",
   "icons" : {
   	"16":"calc16.gif",
@@ -9,7 +9,7 @@
   	"128":"ico128.gif"
   },
   "browser_action": {
-    "default_icon": "ico32.gif",
+    "default_icon": "ico48.gif",
     "default_title": "Status-bar Calculator",
     "popup": "statusbarcalculator.html"
   },

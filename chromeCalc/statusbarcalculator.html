@@ -29,47 +29,76 @@ li {margin:0px;padding:0px;}
 		<div id="formulas">
 			<div id="geometry">
 				<ul>
+					<li><strong>Geometry</strong></li>
 					<li>Rectangle:
 						<ul>
 							<li>Area: LW <br />
 								<input type="text" value="var L=0,W=0;(L*W)"/>
 								<input type="button" onclick="placeFormula('var L=0,W=0;','(L*W)')" value="Place" />
-								<input type="button" onclick="placeFormula('var L=0,W=0;','(L*W)')" value="Append" />
+								<input type="button" onclick="placeFormula('var L=0,W=0;','(L*W)', false)" value="Append" />
 							</li>
 							<li>Perimeter: 2L+2W <br />
 								<input type="text" value="var L=0,W=0;(2*L)*(2*W)"/>
 								<input type="button" onclick="placeFormula('var L=0,W=0;','(2*L)*(2*W)')" value="Place" />
-								<input type="button" onclick="placeFormula('var L=0,W=0;','(2*L)*(2*W)')" value="Append" />
+								<input type="button" onclick="placeFormula('var L=0,W=0;','(2*L)*(2*W)', false)" value="Append" />
 							</li>
 						</ul>
 					</li>
 					<li>Triangle:
 						<ul>
-							<li><input type="button" onclick="placeFormula('var B=0,H=0;','.5*(B*H)')" value="Area: ½(B*H)" /></li>
-							<li><input type="button" onclick="placeFormula('var A=0,B=0;','Math.pow(A,2) + Math.pow(B,2)')" value="C² = A² + B²" /></li>
+							<li>Area: ½(BH)<br />
+								<input type="text" value="var B=0,H=0;.5*(B*H)" />
+								<input type="button" onclick="placeFormula('var B=0,H=0;','.5*(B*H)')" value="Place" />
+								<input type="button" onclick="placeFormula('var B=0,H=0;','.5*(B*H)', false)" value="Append" />
+							</li>
+							<li>C² = A² + B²<br />
+								<input type="text" value="var A=0,B=0;Math.pow(A,2) + Math.pow(B,2)" />
+								<input type="button" onclick="placeFormula('var A=0,B=0;','Math.pow(A,2) + Math.pow(B,2)')" value="Place" />
+								<input type="button" onclick="placeFormula('var A=0,B=0;','Math.pow(A,2) + Math.pow(B,2)', false)" value="Append" />
+							</li>
 						</ul>
 					</li>
 					<li>Parallelogram:
 						<ul>
-							<li><input type="button" onclick="placeFormula('var B=0,H=0;','B*H')" value="Area: B*H" /></li>
+							<li>Area: BH<br />
+								<input type="text" value="var B=0,H=0;B*H" />
+								<input type="button" onclick="placeFormula('var B=0,H=0;','B*H')" value="Place" />
+								<input type="button" onclick="placeFormula('var B=0,H=0;','B*H', false)" value="Append" />
+							</li>
 						</ul>
 					</li>
 					<li>Trapezoid:
 						<ul>
-							<li><input type="button" onclick="placeFormula('var H=0,B=0,T=0;','.5*(H*(B*T))')" value="Area: ½(H*(B*T))" /></li>
+							<li>Area: ½(H(BT))<br />
+								<input type="text" value="var H=0,B=0,T=0;.5*(H*(B*T))" />
+								<input type="button" onclick="placeFormula('var H=0,B=0,T=0;','.5*(H*(B*T))')" value="Place" />
+								<input type="button" onclick="placeFormula('var H=0,B=0,T=0;','.5*(H*(B*T))', false)" value="Append" />
+							</li>
 						</ul>
 					</li>
 					<li>Circle:
 						<ul>
-							<li><input type="button" onclick="placeFormula('var r=0;','Math.pi(Math.pow(r,2))')" value="Area: pi*r²" /></li>
-							<li><input type="button" onclick="placeFormula('var r=0;','2*(Math.pi(r))')" value="Circumference: 2*pi*r" /></li>
+							<li>Area: pi(r²)<br />
+								<input type="text" value="var r=0;Math.pi(Math.pow(r,2))" />
+								<input type="button" onclick="placeFormula('var r=0;','Math.pi(Math.pow(r,2))')" value="Place" />
+								<input type="button" onclick="placeFormula('var r=0;','Math.pi(Math.pow(r,2))', false)" value="Append" />
+							</li>
+							<li>Circumference: 2*pi*r<br />
+								<input type="text" value="var r=0;2*(Math.pi(r))" />
+								<input type="button" onclick="placeFormula('var r=0;','2*(Math.pi(r))')" value="Place" />
+								<input type="button" onclick="placeFormula('var r=0;','2*(Math.pi(r))', false)" value="Append" />
+							</li>
 						</ul>
 					</li>
 				</ul>
 			</div>
 			<div id="algebra"></div>
 			<div id="conversions">
-				<input type="button" id="convertToFraction" onclick="fraction();" value="%" title="convert decimal to fraction"/>
+				<ul>
+					<li><strong>Conversions</strong></li>
+					<li>Decimal to Fraction <input type="button" id="convertToFraction" onclick="fraction();" value="Do" /></li>
+				</ul>
+
 			</div>
 		</div>
 	</div>
@@ -225,9 +254,13 @@ function problemBoxFocus(){
     document.getElementById("problemBox").focus();
 }
 
-function placeFormula(setup,formula){
-	//document.getElementById("problemBox").value = setup + document.getElementById("problemBox").value + formula;
-	document.getElementById("problemBox").value = setup + formula;
+function placeFormula(setup,formula, replace){
+	if(replace !== false){
+		document.getElementById("problemBox").value = setup + formula;
+	}else{
+		document.getElementById("problemBox").value = setup + document.getElementById("problemBox").value + formula;
+	}
+
 	problemBoxFocus();
 }
 
