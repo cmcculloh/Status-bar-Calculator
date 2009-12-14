@@ -12,26 +12,76 @@ li {margin:0px;padding:0px;}
 .clearfix{clear:both;}
 #problemBox{width:198px;background-color: #efffff;}
 #fraction{text-align: right;}
-#calculator{width:200px;height:200px;overflow:hidden;padding: 0px;margin:0px;}
-#links{margin: 20px 0 0 0;width:200px;height:40px;overflow:hidden;}
+#calculator{width:200px;padding: 0px;margin:0px;float:right;}
+#links{margin: 20px 0 0 0;width:200px;height:40px;overflow:hidden;clear:both;text-align:right;float:right;}
 #controls{width:200px;text-align:right;clear:both;margin-top:10px;}
+#formulas, #algebra, #conversions{display:block;}
+#more{float:left; width:400px;display:none;margin:0px;padding:0px;overflow:auto;height:250px;background-color:#eee;}
+#container{overflow: hidden;height: 250px;}
+#main{float:right;width:200px;}
 </style>
 </head>
 <body>
-<div id="calculator">
-	<input type="text" id="problemBox" onChange="calculate();"/>
-	<ul onclick="problemBoxFocus();" id="problemHistory"></ul>
-	<div id="controls">
-		<input type="button" id="convertToFraction" onclick="fraction();" value="%" title="convert decimal to fraction"/>
-		<input type="button" id="clearHistory" onclick="clearHistory();" value="AC" title="clear history" />
-		<input type="button" id="clearProblemBox" onclick="clearProblemBox();" value="C" title="clear input box"/>
-		<input type="button" id="calculate" onclick="calculate();" value="=" title="calculate"/>
+<div id="container">
+	<div id="more">
+		<div id="extendedFunctions"></div>
+		<div id="formulas">
+			<div id="geometry">
+				<ul>
+					<li>Rectangle:
+						<ul>
+							<li><input type="button" onclick="placeFormula('var L=0,W=0;','(L*W)')" value="Area: L*W" /></li>
+							<li><input type="button" onclick="placeFormula('var L=0,W=0;','(2*L)*(2*W)')" value="Perimeter: 2*L + 2*W" /></li>
+						</ul>
+					</li>
+					<li>Triangle:
+						<ul>
+							<li><input type="button" onclick="placeFormula('var B=0,H=0;','.5*(B*H)')" value="Area: ½(B*H)" /></li>
+							<li><input type="button" onclick="placeFormula('var A=0,B=0;','Math.pow(A,2) + Math.pow(B,2)')" value="C² = A² + B²" /></li>
+						</ul>
+					</li>
+					<li>Parallelogram:
+						<ul>
+							<li><input type="button" onclick="placeFormula('var B=0,H=0;','B*H')" value="Area: B*H" /></li>
+						</ul>
+					</li>
+					<li>Trapezoid:
+						<ul>
+							<li><input type="button" onclick="placeFormula('var H=0,B=0,T=0;','.5*(H*(B*T))')" value="Area: ½(H*(B*T))" /></li>
+						</ul>
+					</li>
+					<li>Circle:
+						<ul>
+							<li><input type="button" onclick="placeFormula('var r=0;','Math.pi(Math.pow(r,2))')" value="Area: pi*r²" /></li>
+							<li><input type="button" onclick="placeFormula('var r=0;','2*(Math.pi(r))')" value="Circumference: 2*pi*r" /></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div id="algebra"></div>
+			<div id="conversions">
+				<input type="button" id="convertToFraction" onclick="fraction();" value="%" title="convert decimal to fraction"/>
+			</div>
+		</div>
 	</div>
-</div>
 
-<div id="links">
-	<a id="hackLink" href="http://etherpad.com/statusbarcalculator">Hack this extension!</a><br />
-	<a id="extensionSite" href="http://www.statusbarcalculator.com">statusbarcalculator.com</a>
+	<div id="main">
+		<div id="calculator">
+			<input type="text" id="problemBox" onChange="calculate();"/>
+			<ul onclick="problemBoxFocus();" id="problemHistory"></ul>
+			<div id="controls">
+				<a href="javascript:more();" style="float:left;" id="moreLink">&lt; more</a>
+				<input type="button" id="clearHistory" onclick="clearHistory();" value="AC" title="clear history" />
+				<input type="button" id="clearProblemBox" onclick="clearProblemBox();" value="C" title="clear input box"/>
+				<input type="button" id="calculate" onclick="calculate();" value="=" title="calculate"/>
+			</div>
+		</div>
+
+		<div id="links">
+			<a id="hackLink" href="http://etherpad.com/statusbarcalculator">Hack this extension!</a><br />
+			<a id="extensionSite" href="http://www.statusbarcalculator.com">statusbarcalculator.com</a>
+		</div>
+	</div>
 </div>
 
 <script>
@@ -75,15 +125,21 @@ function calculate(){
     //patch for ^ contributed by bwrobinett (THANKS!)
     //check if problem contains ^ or ² symbol
     problem = problemText.replace(/(\w+)\^(\w+)/g, "Math.pow($1,$2)").replace(/(\w+)²/g, "Math.pow($1,2)");
-    var solution = eval(problem);
+	var solution;
+    try{
+    	solution = eval(problem);
 
-    if(problem != solution){
-        refreshHistory(problemText, solution);
-    }
+		if(problem != solution){
+			refreshHistory(problemText, solution);
+		}
 
-    document.getElementById("problemBox").value = solution;
+		document.getElementById("problemBox").value = solution;
 
-    setBadge(solution);
+		setBadge(solution);
+	}catch(e){
+		solution = "ERROR";
+		refreshHistory(problemText, solution, false);
+	}
 }
 
 function setBadge(solution){
@@ -142,7 +198,7 @@ function refreshHistory(problem, solution, linkSolution){
 }
 
 function reinstate(expression){
-    document.getElementById("problemBox").value = expression;
+    document.getElementById("problemBox").value += expression;
     problemBoxFocus();
 }
 function clearHistory(){
@@ -158,6 +214,27 @@ function clearProblemBox(){
 
 function problemBoxFocus(){
     document.getElementById("problemBox").focus();
+}
+
+function placeFormula(setup,formula){
+	//document.getElementById("problemBox").value = setup + document.getElementById("problemBox").value + formula;
+	document.getElementById("problemBox").value = setup + formula;
+	problemBoxFocus();
+}
+
+function more(){
+	var moreDiv = document.getElementById('more');
+	var moreLink = document.getElementById('moreLink');
+	var container = document.getElementById('container').style;
+	if(moreDiv.style.display=="block"){
+		moreDiv.style.display="none";
+		moreLink.innerHTML = "&lt; more";
+		container.width = "200px";
+	}else{
+		moreDiv.style.display="block";
+		moreLink.innerHTML = "less &gt;";
+		container.width = "610px";
+	}
 }
 /**
  * Convert decimal number to fraction
