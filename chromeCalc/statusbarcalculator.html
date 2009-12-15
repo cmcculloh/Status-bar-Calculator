@@ -2,11 +2,16 @@
 <head>
 <style>
 @font-face {
-	font-family: 'DigitaldreamRegular';
-	src: url('DIGITALDREAM.eot');
-	src: local('Digital dream Regular'), local('Digitaldream'), url('DIGITALDREAM.woff') format('woff'), url('DIGITALDREAM.ttf') format('truetype'), url('DIGITALDREAM.svg#Digitaldream') format('svg');
+	font-family: 'BitstreamVeraSansMonoRoman';
+	src: url('VeraMono.eot');
+	src: local('Bitstream Vera Sans Mono Roman'), local('BitstreamVeraSansMono-Roman'), url('VeraMono.woff') format('woff'), url('VeraMono.ttf') format('truetype'), url('VeraMono.svg#BitstreamVeraSansMono-Roman') format('svg');
 }
-body{font-family: 'DigitaldreamRegular', Arial, sans-serif;}
+@font-face {
+	font-family: 'CPMono_v07Plain';
+	src: url('CPMono_v07_Plain.eot');
+	src: local('CPMono_v07 Plain'), local('CPMono_v07Plain'), url('CPMono_v07_Plain.woff') format('woff'), url('CPMono_v07_Plain.otf') format('opentype'), url('CPMono_v07_Plain.svg#CPMono_v07Plain') format('svg');
+}
+textarea, input, #problemHistory{font-family: 'CPMono_v07Plain', 'BitstreamVeraSansMonoRoman', Arial, sans-serif;}
 ul{list-style-type:none;margin:0px;padding:0px;}
 #problemHistory {height: 100px;width:188px;overflow:auto;clear:both;display:block;padding:5px;border:1px solid #aaa;background-color:#efefff;}
 li {margin:0px;padding:0px;}
@@ -89,11 +94,29 @@ li {margin:0px;padding:0px;}
 								<input type="button" onclick="placeFormula('var r=0;','Math.PI*(Math.pow(r,2))')" value="Place" />
 								<input type="button" onclick="placeFormula('var r=0;','Math.PI*(Math.pow(r,2))', false)" value="Append" />
 							</li>
-							<li>Circumference: 2*pi*r<br />
+							<li>Circumference: 2(pi)r<br />
 								<input type="text" value="var r=0;2*(Math.PI*r)" />
 								<input type="button" onclick="placeFormula('var r=0;','2*(Math.PI*r)')" value="Place" />
 								<input type="button" onclick="placeFormula('var r=0;','2*(Math.PI*r), false)" value="Append" />
 							</li>
+						</ul>
+					</li>
+					<li>Right Circular Cone
+						<ul>
+							<li>Volume: 1/3(pi(r²h))</li>
+							<li>Lateral Surface Area: pi(r)*sqrt(r²+h²)</li>
+						</ul>
+					</li>
+					<li>Right Circular Cylinder
+						<ul>
+							<li>Volume: pi(r²)h</li>
+							<li>Lateral surface area = 2(pi)r(h)</li>
+						</ul>
+					</li>
+					<li>Sphere
+						<ul>
+							<li>Volume: 4/3(pi)r³</li>
+							<li>Surface Area: 4(pi)r²</li>
 						</ul>
 					</li>
 				</ul>
@@ -168,7 +191,7 @@ function calculate(){
     var problemText = document.getElementById("problemBox").value;
     //patch for ^ contributed by bwrobinett (THANKS!)
     //check if problem contains ^ or ² symbol
-    problem = problemText.replace(/(\w+)\^(\w+)/g, "Math.pow($1,$2)").replace(/(\w+)²/g, "Math.pow($1,2)");
+    problem = problemText.replace(/(\w+)\^(\w+)/g, "Math.pow($1,$2)").replace(/(\w+)²/g, "Math.pow($1,2)").replace(/(\w+)³/g, "Math.pow($1,3)");
 	var solution;
     try{
     	solution = eval(problem);
