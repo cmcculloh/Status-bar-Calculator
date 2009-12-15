@@ -191,7 +191,7 @@ function calculate(){
     var problemText = document.getElementById("problemBox").value;
     //patch for ^ contributed by bwrobinett (THANKS!)
     //check if problem contains ^ or &sup2; or &sup3; symbol
-    problem = problemText.replace(/(\w+)\^(\w+)/g, "Math.pow($1,$2)").replace(/(\w+)Â²/g, "Math.pow($1,2)").replace(/(\w+)Â³/g, "Math.pow($1,3)");
+    problem = problemText.replace(/(\w+)\^(\w+)/g, "Math.pow($1,$2)").replace(/(\w+)²/g, "Math.pow($1,2)").replace(/(\w+)³/g, "Math.pow($1,3)");
 	var solution;
     try{
     	solution = eval(problem);
@@ -204,6 +204,7 @@ function calculate(){
 
 		setBadge(solution);
 	}catch(e){
+		console.log("error: " + e);
 		solution = "ERROR";
 		refreshHistory(problemText, solution, false);
 	}
