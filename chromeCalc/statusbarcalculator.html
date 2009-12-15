@@ -57,12 +57,12 @@ li {margin:0px;padding:0px;}
 					</li>
 					<li>Triangle:
 						<ul>
-							<li>Area: �(BH)<br />
+							<li>Area: ½(BH)<br />
 								<input type="text" value="var B=0,H=0;.5*(B*H)" />
 								<input type="button" onclick="placeFormula('var B=0,H=0;','.5*(B*H)')" value="Place" />
 								<input type="button" onclick="placeFormula('var B=0,H=0;','.5*(B*H)', false)" value="Append" />
 							</li>
-							<li>C� = A� + B�<br />
+							<li>C² = A² + B²<br />
 								<input type="text" value="var A=0,B=0;Math.pow(A,2) + Math.pow(B,2)" />
 								<input type="button" onclick="placeFormula('var A=0,B=0;','Math.pow(A,2) + Math.pow(B,2)')" value="Place" />
 								<input type="button" onclick="placeFormula('var A=0,B=0;','Math.pow(A,2) + Math.pow(B,2)', false)" value="Append" />
@@ -80,7 +80,7 @@ li {margin:0px;padding:0px;}
 					</li>
 					<li>Trapezoid:
 						<ul>
-							<li>Area: �(H(BT))<br />
+							<li>Area: ½(H(BT))<br />
 								<input type="text" value="var H=0,B=0,T=0;.5*(H*(B*T))" />
 								<input type="button" onclick="placeFormula('var H=0,B=0,T=0;','.5*(H*(B*T))')" value="Place" />
 								<input type="button" onclick="placeFormula('var H=0,B=0,T=0;','.5*(H*(B*T))', false)" value="Append" />
@@ -89,7 +89,7 @@ li {margin:0px;padding:0px;}
 					</li>
 					<li>Circle:
 						<ul>
-							<li>Area: pi(r�)<br />
+							<li>Area: pi(r²)<br />
 								<input type="text" value="var r=0;Math.PI*(Math.pow(r,2))" />
 								<input type="button" onclick="placeFormula('var r=0;','Math.PI*(Math.pow(r,2))')" value="Place" />
 								<input type="button" onclick="placeFormula('var r=0;','Math.PI*(Math.pow(r,2))', false)" value="Append" />
@@ -103,20 +103,20 @@ li {margin:0px;padding:0px;}
 					</li>
 					<li>Right Circular Cone
 						<ul>
-							<li>Volume: 1/3(pi(r�h))</li>
-							<li>Lateral Surface Area: pi(r)*sqrt(r�+h�)</li>
+							<li>Volume: 1/3(pi(r²h))</li>
+							<li>Lateral Surface Area: pi(r)*sqrt(r²+h²)</li>
 						</ul>
 					</li>
 					<li>Right Circular Cylinder
 						<ul>
-							<li>Volume: pi(r�)h</li>
+							<li>Volume: pi(r²)h</li>
 							<li>Lateral surface area = 2(pi)r(h)</li>
 						</ul>
 					</li>
 					<li>Sphere
 						<ul>
-							<li>Volume: 4/3(pi)r�</li>
-							<li>Surface Area: 4(pi)r�</li>
+							<li>Volume: 4/3(pi)r³</li>
+							<li>Surface Area: 4(pi)r²</li>
 						</ul>
 					</li>
 				</ul>
@@ -190,8 +190,8 @@ function gotoLink(event){
 function calculate(){
     var problemText = document.getElementById("problemBox").value;
     //patch for ^ contributed by bwrobinett (THANKS!)
-    //check if problem contains ^ or � symbol
-    problem = problemText.replace(/(\w+)\^(\w+)/g, "Math.pow($1,$2)").replace(/(\w+)�/g, "Math.pow($1,2)").replace(/(\w+)�/g, "Math.pow($1,3)");
+    //check if problem contains ^ or ² or ³ symbol
+    problem = problemText.replace(/(\w+)\^(\w+)/g, "Math.pow($1,$2)").replace(/(\w+)²/g, "Math.pow($1,2)").replace(/(\w+)³/g, "Math.pow($1,3)");
 	var solution;
     try{
     	solution = eval(problem);
