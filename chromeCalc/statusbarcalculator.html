@@ -32,13 +32,14 @@ li {margin:0px;padding:0px;}
 #container{overflow: hidden;height: 250px;}
 #main{float:right;width:200px;}
 #more ul li ul {margin-left:25px;}
-#geometry, #conversions, #rectangle, #triangle, #parallelogram, #trapezoid, #circle, #rightCircularCone, #rightCircularCylinder, #sphere, #length, #volume, #weight{display:none;}
+#javascriptMathObject, #methods, #properties, #geometry, #conversions, #rectangle, #triangle, #parallelogram, #trapezoid, #circle, #rightCircularCone, #rightCircularCylinder, #sphere, #length, #volume, #weight{display:none;}
+#optionsLink{bottom:10px;right:195px;position:fixed;}
 </style>
 </head>
 <body>
 <div id="container">
+	<a id="optionsLink" href="statusbarcalculator_options.html"><img src="cog_go.png" /></a>
 	<div id="more">
-		<div id="extendedFunctions"></div>
 		<div id="formulas">
 			<ul>
 				<li><strong><a href="javascript:showHide('geometry');">Geometry</a></strong>
@@ -160,6 +161,96 @@ li {margin:0px;padding:0px;}
 						</li>
 					</ul>
 				</li>
+				<li><strong><a href="javascript:showHide('javascriptMathObject');">JavaScript Math Object</a></strong>
+					<ul id="javascriptMathObject">
+						<li><a href="javascript:showHide('properties');">Properties</a>
+							<ul id="properties">
+								<li>E <input type="button" id="mathE" onclick="placeFormula('', 'Math.E');" value="Place" />
+										<input type="button" id="mathEAppend" onclick="placeFormula('', 'Math.E', false);" value="Append">
+								</li>
+								<li>LN2 <input type="button" id="mathLN2" onclick="placeFormula('', 'Math.LN2');" value="Place" />
+										<input type="button" id="mathLN2Append" onclick="placeFormula('', 'Math.LN2', false);" value="Append">
+								</li>
+								<li>LN10 <input type="button" id="mathLN10" onclick="placeFormula('', 'Math.LN10');" value="Place" />
+										<input type="button" id="mathLN10Append" onclick="placeFormula('', 'Math.LN10', false);" value="Append">
+								</li>
+								<li>LOG2E <input type="button" id="mathLOG2E" onclick="placeFormula('', 'Math.LOG2E');" value="Place" />
+										<input type="button" id="mathLOG2EAppend" onclick="placeFormula('', 'Math.LOG2E', false);" value="Append">
+								</li>
+								<li>LOG10E <input type="button" id="mathLOG10E" onclick="placeFormula('', 'Math.LOG10E');" value="Place" />
+										<input type="button" id="mathLOG10EAppend" onclick="placeFormula('', 'Math.LOG10E', false);" value="Append">
+								</li>
+								<li>PI <input type="button" id="mathPI" onclick="placeFormula('', 'Math.PI');" value="Place" />
+										<input type="button" id="mathPIAppend" onclick="placeFormula('', 'Math.PI', false);" value="Append">
+								</li>
+								<li>SQRT1_2 <input type="button" id="mathSQRT1_2" onclick="placeFormula('', 'Math.SQRT1_2');" value="Place" />
+										<input type="button" id="mathSQRT1_2Append" onclick="placeFormula('', 'Math.SQRT1_2', false);" value="Append">
+								</li>
+								<li>SQRT2 <input type="button" id="mathSQRT2" onclick="placeFormula('', 'Math.SQRT2');" value="Place" />
+										<input type="button" id="mathSQRT2Append" onclick="placeFormula('', 'Math.SQRT2', false);" value="Append">
+								</li>
+							</ul>
+						</li>
+						<li><a href="javascript:showHide('methods');">Methods</a>
+							<ul id="methods">
+								<li>abs(x) <input type="button" id="mathabs(x)" onclick="placeFormula('var x=0;', 'Math.abs(x)');" value="Place" />
+											<input type="button" id="mathabs(x)Append" onclick="placeFormula('var x=0;', 'Math.abs(x)', false);" value="Append" />
+								</li>
+								<li>acos(x) <input type="button" id="mathacos(x)" onclick="placeFormula('var x=0;', 'Math.acos(x)');" value="Place" />
+											<input type="button" id="mathacos(x)Append" onclick="placeFormula('var x=0;', 'Math.acos(x)', false);" value="Append" />
+								</li>
+								<li>asin(x) <input type="button" id="mathasin(x)" onclick="placeFormula('var x=0;', 'Math.asin(x)');" value="Place" />
+											<input type="button" id="mathasin(x)Append" onclick="placeFormula('var x=0;', 'Math.asin(x)', false);" value="Append" />
+								</li>
+								<li>atan(x) <input type="button" id="mathatan(x)" onclick="placeFormula('var x=0;', 'Math.atan(x)');" value="Place" />
+											<input type="button" id="mathatan(x)Append" onclick="placeFormula('var x=0;', 'Math.atan(x)', false);" value="Append" />
+								</li>
+								<li>atan2(y,x) <input type="button" id="mathatan2(y,x)" onclick="placeFormula('var x=0,y=0;', 'Math.atan2(y,x)');" value="Place" />
+											<input type="button" id="mathatan2(y,x)Append" onclick="placeFormula('var x=0,y=0;', 'Math.atan2(y,x)', false);" value="Append" />
+								</li>
+								<li>ceil(x) <input type="button" id="mathceil(x)" onclick="placeFormula('var x=0;', 'Math.ceil(x)');" value="Place" />
+											<input type="button" id="mathceil(x)Append" onclick="placeFormula('var x=0;', 'Math.ceil(x)', false);" value="Append" />
+								</li>
+								<li>cos(x) <input type="button" id="mathcos(x)" onclick="placeFormula('var x=0;', 'Math.cos(x)');" value="Place" />
+											<input type="button" id="mathcos(x)Append" onclick="placeFormula('var x=0;', 'Math.cos(x)', false);" value="Append" />
+								</li>
+								<li>exp(x) <input type="button" id="mathexp(x)" onclick="placeFormula('var x=0;', 'Math.exp(x)');" value="Place" />
+											<input type="button" id="mathexp(x)Append" onclick="placeFormula('var x=0;', 'Math.exp(x)', false);" value="Append" />
+								</li>
+								<li>floor(x) <input type="button" id="mathfloor(x)" onclick="placeFormula('var x=0;', 'Math.floor(x)');" value="Place" />
+											<input type="button" id="mathfloor(x)Append" onclick="placeFormula('var x=0;', 'Math.floor(x)', false);" value="Append" />
+								</li>
+								<li>log(x) <input type="button" id="mathlog(x)" onclick="placeFormula('var x=0;', 'Math.log(x)');" value="Place" />
+											<input type="button" id="mathlog(x)Append" onclick="placeFormula('var x=0;', 'Math.log(x)', false);" value="Append" />
+								</li>
+								<li>max(x,y) <input type="button" id="mathmax(x,y)" onclick="placeFormula('var x=0,y=0;', 'Math.max(x,y)');" value="Place" />
+											<input type="button" id="mathmax(x,y)Append" onclick="placeFormula('var x=0,y=0;', 'Math.max(x,y)', false);" value="Append" />
+								</li>
+								<li>min(x,y) <input type="button" id="mathmin(x,y)" onclick="placeFormula('var x=0,y=0;', 'Math.min(x,y)');" value="Place" />
+											<input type="button" id="mathmin(x,y)Append" onclick="placeFormula('var x=0,y=0;', 'Math.min(x,y)', false);" value="Append" />
+								</li>
+								<li>pow(x,y) <input type="button" id="mathpow(x,y)" onclick="placeFormula('var x=0,y=0;', 'Math.pow(x,y)');" value="Place" />
+											<input type="button" id="mathpow(x,y)Append" onclick="placeFormula('var x=0,y=0;', 'Math.pow(x,y)', false);" value="Append" />
+								</li>
+								<li>random() <input type="button" id="mathrandom()" onclick="placeFormula('', 'Math.random()');" value="Place" />
+											<input type="button" id="mathrandom()Append" onclick="placeFormula('', 'Math.random()', false);" value="Append" />
+								</li>
+								<li>round(x) <input type="button" id="mathround(x)" onclick="placeFormula('var x=0;', 'Math.round(x)');" value="Place" />
+											<input type="button" id="mathround(x)Append" onclick="placeFormula('var x=0;', 'Math.round(x)', false);" value="Append" />
+								</li>
+								<li>sin(x) <input type="button" id="mathsin(x)" onclick="placeFormula('var x=0;', 'Math.sin(x)');" value="Place" />
+											<input type="button" id="mathsin(x)Append" onclick="placeFormula('var x=0;', 'Math.sin(x)', false);" value="Append" />
+								</li>
+								<li>sqrt(x) <input type="button" id="mathsqrt(x)" onclick="placeFormula('var x=0;', 'Math.sqrt(x)');" value="Place" />
+											<input type="button" id="mathsqrt(x)Append" onclick="placeFormula('var x=0;', 'Math.sqrt(x)', false);" value="Append" />
+								</li>
+								<li>tan(x) <input type="button" id="mathtan(x)" onclick="placeFormula('var x=0;', 'Math.tan(x)');" value="Place" />
+											<input type="button" id="mathtan(x)Append" onclick="placeFormula('var x=0;', 'Math.tan(x)', false);" value="Append" />
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -213,6 +304,7 @@ refreshHistory("","");
 
 document.getElementById("hackLink").addEventListener("click", gotoLink);
 document.getElementById("extensionSite").addEventListener("click", gotoLink);
+document.getElementById("optionsLink").addEventListener("click", gotoLink);
 
 function gotoLink(event){
   var href = event.currentTarget.href;
@@ -391,7 +483,7 @@ function fraction(){
 
 function showHide(what){
 	var selectedDiv = document.getElementById(what);
-	
+
 	if(selectedDiv.style.display=="block"){
 		selectedDiv.style.display="none";
 	}else{
