@@ -2,4 +2,13 @@ This project encompasses both the Firefox Extension and the Chrome Extension
 
 Website: http://www.statusbarcalculator.com
 
-Do not edit any files with ² (&sup2; or superscript two) through the browser, it will screw them up.
+Do not edit any files with ï¿½ (&sup2; or superscript two) through the browser, it will screw them up.
+
+
+
+Right now there are problems with addition/subtraction. Working on a new engine that instead of using eval() only, will run the whole thing through some regex that will add/subtract everything before it runs an eval to do the multiplication/division.
+
+http://jsfiddle.net/cmcculloh/VXSFA/
+
+
+Also, working on a new version for FF 4. As of FF 4 this will no longer go in the Status-Bar so it's kind of pointless to call this extension the "Status-bar Calculator" except for the brand-recognition...
